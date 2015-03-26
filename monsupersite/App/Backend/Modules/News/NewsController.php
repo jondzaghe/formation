@@ -26,6 +26,44 @@ class NewsController extends BackController
     
     $this->page->addVar('title', 'Ajout d\'une news');
   }
+
+
+
+  public function executeInsertComment(HTTPRequest $request)
+  {
+    // Si le formulaire a été envoyé.
+    if ($request->method() == 'POST')
+    {
+      $comment = new Comment([
+        'news' => $request->getData('news'),
+        'auteur' => $request->postData('auteur'),
+        'contenu' => $request->postData('contenu')
+      ]);
+    }
+    else
+    {
+      $comment = new Comment;
+    }
+
+    $formBuilder = new CommentFormBuilder($comment);
+    $formBuilder->build();
+
+    $form = $formBuilder->form();
+
+    if ($request->method() == 'POST' && $form->isValid())
+    {
+      $this->managers->getManagerOf('Comments')->save($comment);
+      $this->app->user()->setFlash('Le commentaire a bien été ajouté, merci !');
+      $this->app->httpResponse()->redirect('news-'.$request->getData('news').'.html');
+    }
+
+    $this->page->addVar('comment', $comment);
+    $this->page->addVar('form', $form->createView());
+    $this->page->addVar('title', 'Ajout d\'un commentaire');
+  }
+
+
+  
   
   public function processForm(HTTPRequest $request)
   {
