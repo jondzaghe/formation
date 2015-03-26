@@ -1,5 +1,7 @@
 <?php 
-  trait Hydrator{
+namespace OCFram;
+
+trait Hydrator{
   
   public function hydrate(array $donnees)
   {

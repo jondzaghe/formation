@@ -5,10 +5,6 @@ class HTTPResponse extends ApplicationComponent
 {
   protected $page;
 
-  public function __construct(Application $App){
-    parent::__construct(@App);
-  }
-
   public function addHeader($header)
   {
     header($header);
