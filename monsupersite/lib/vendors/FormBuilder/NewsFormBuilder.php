@@ -1,12 +1,12 @@
 <?php
 namespace FormBuilder;
-
+ 
 use \OCFram\FormBuilder;
 use \OCFram\StringField;
 use \OCFram\TextField;
 use \OCFram\MaxLengthValidator;
 use \OCFram\NotNullValidator;
-
+ 
 class NewsFormBuilder extends FormBuilder
 {
   public function build()

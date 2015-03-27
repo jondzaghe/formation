@@ -3,7 +3,7 @@
 <table>
   <tr><th>Nom</th><th>Prenom</th></tr>
 <?php
-foreach ($listeEcraivain as $liste)
+foreach ($listeEcrivain as $liste)
 {
   echo '<tr><td>', $liste->fucNom(), '</td><td>', $liste->fucPrenom(), '</td></tr>', "\n";
 }

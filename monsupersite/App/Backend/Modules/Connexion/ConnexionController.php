@@ -14,10 +14,17 @@ class ConnexionController extends BackController
     {
       $login = $request->postData('login');
       $password = $request->postData('password');
+
+      // On récupère le manager des users
+      $manager = $this->managers->getManagerOf('Users');
+
+      $membre = $manager->getMembre($login, $password);
  
-      if ($login == $this->app->config()->get('login') && $password == $this->app->config()->get('pass'))
+      if ($membre != null)
       {
+
         $this->app->user()->setAuthenticated(true);
+        $this->app->user()->setUser($membre);
         $this->app->httpResponse()->redirect('.');
       }
       else
@@ -30,6 +37,6 @@ class ConnexionController extends BackController
 
   public function executeLogout(HTTPRequest $request){
     $this->app->user()->setAuthenticated(false);
-    $this->app->httpResponse()->redirect('../');
+    $this->app->httpResponse()->redirect('../../');
   }
 }

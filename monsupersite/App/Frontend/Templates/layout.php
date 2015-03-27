@@ -20,10 +20,17 @@
       <nav>
         <ul>
           <li><a href="/">Accueil</a></li>
+          <?php if (!$user->isAuthenticated()) { ?>
+          <li><a href="/admin/">Connexion</a></li>
+          <?php } ?>
           <?php if ($user->isAuthenticated()) { ?>
-          <li><a href="/admin/">Admin</a></li>
-          <li><a href="/admin/news-insert.html">Ajouter une news</a></li>
-          <li><a href="/admin/news-deconnexion.html">Déconnexion</a></li>
+              <?php if ($user->getUser()->fucType() == 1) { ?>
+                  <li><a href="/admin/">Admin</a></li>
+                  <li><a href="/admin/gestionecrivain/">Gestion Ecrivain</a></li>
+              <?php } ?>
+              <li><a href="/admin/news-insert.html">Ajouter une news</a></li>
+              <li><a href="/admin/logout/">Déconnexion</a></li>
+              <li><a href="">Bonjour <?php echo $user->getUser()->fucNom(); ?></a></li>
           <?php } ?>
         </ul>
       </nav>

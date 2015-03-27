@@ -4,6 +4,9 @@ namespace App\Frontend\Modules\News;
 use \OCFram\BackController;
 use \OCFram\HTTPRequest;
 use \Entity\Comment;
+use \OCFram\Form;
+use \OCFram\StringField;
+use \OCFram\TextField;
 
 class NewsController extends BackController
 {
@@ -50,14 +53,56 @@ class NewsController extends BackController
   }
 
 
-  public function executeInsertComment(HTTPRequest $request)
+    public function executeInsertComment(HTTPRequest $request)
   {
+    // Si le formulaire a été envoyé, on crée le commentaire avec les valeurs du formulaire.
+    if ($request->method() == 'POST')
+    {
+      $comment = new Comment([
+        'news' => $request->getData('news'),
+        'auteur' => $request->postData('auteur'),
+        'contenu' => $request->postData('contenu')
+      ]);
+    }
+    else
+    {
+      $comment = new Comment;
+    }
+    
+    $form = new Form($comment);
+    
+    $form->add(new StringField([
+        'label' => 'Auteur',
+        'name' => 'auteur',
+        'maxLength' => 50,
+       ]))
+       ->add(new TextField([
+        'label' => 'Contenu',
+        'name' => 'contenu',
+        'rows' => 7,
+        'cols' => 50,
+       ]));
+    
+    if ($form->isValid())
+    {
+      // On enregistre le commentaire
+    }
+    
+    $this->page->addVar('comment', $comment);
+    $this->page->addVar('form', $form->createView()); // On passe le formulaire généré à la vue.
     $this->page->addVar('title', 'Ajout d\'un commentaire');
+  }
+
+
+
+  public function executeUpdateComment(HTTPRequest $request)
+  {
+    $this->page->addVar('title', 'Modification d\'un commentaire');
     
     if ($request->postExists('pseudo'))
     {
       $comment = new Comment([
-        'news' => $request->getData('news'),
+        'id' => $request->getData('id'),
         'auteur' => $request->postData('pseudo'),
         'contenu' => $request->postData('contenu')
       ]);
@@ -66,9 +111,9 @@ class NewsController extends BackController
       {
         $this->managers->getManagerOf('Comments')->save($comment);
         
-        $this->app->user()->setFlash('Le commentaire a bien été ajouté, merci !');
+        $this->app->user()->setFlash('Le commentaire a bien été modifié !');
         
-        $this->app->httpResponse()->redirect('news-'.$request->getData('news').'.html');
+        $this->app->httpResponse()->redirect('/news-'.$request->postData('news').'.html');
       }
       else
       {
@@ -76,6 +121,10 @@ class NewsController extends BackController
       }
       
       $this->page->addVar('comment', $comment);
+    }
+    else
+    {
+      $this->page->addVar('comment', $this->managers->getManagerOf('Comments')->get($request->getData('id')));
     }
   }
 }

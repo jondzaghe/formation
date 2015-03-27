@@ -47,4 +47,13 @@ class User
   {
     $_SESSION['flash'] = $value;
   }
+
+  public function getUser(){
+    return isset($_SESSION['user']) ? $_SESSION['user'] : null;
+  }
+
+
+  public function setUser($user){
+    $_SESSION['user'] = $user;
+  }
 }

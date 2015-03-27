@@ -1,5 +1,5 @@
 <?php
-namespace App\Frontend\Modules\News;
+namespace App\Backend\Modules\User;
 
 use \OCFram\BackController;
 use \OCFram\HTTPRequest;

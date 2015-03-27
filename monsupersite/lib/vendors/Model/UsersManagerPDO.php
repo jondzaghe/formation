@@ -51,7 +51,7 @@ class UsersManagerPDO extends UsersManager{
 		if($requete->rowcount() == 0)
 	    	$listeEcrivain = null;
 	    else{
-	    	$listes = $requete->FetchAll();
+	    	$Listes = $requete->FetchAll();
 
 	    	/**
 	    	 * For each loop, we create a new user and we add it to the listeEcrivain
