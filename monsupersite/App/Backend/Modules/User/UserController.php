@@ -20,5 +20,13 @@ class UserController extends BackController
     $this->page->addVar('listeEcrivain', $manager->getListeEcrivain());
   }
 
+  public function executeDelete(HttpRequest $request){
+  	$manager = $this->managers->getManagerOf('Users');
+
+	$userId = $request->getData('id');
+  	$manager->delete($userId);
+  	$this->app->httpResponse()->redirect('.');
+  }
+
 
 }
