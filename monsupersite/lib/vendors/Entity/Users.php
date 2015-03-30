@@ -5,13 +5,24 @@ use \OCFram\Entity;
 
 class Users extends Entity{
 
-	protected 	$fuc_nom,
+	protected 	$fuc_id,
+				$fuc_nom,
 				$fuc_prenom,
 				$fuc_mdp,
 				$fuc_fk_type;
 
 	const TYPE_ADMIN = 1; // ID DU TYPE ADMIN
 	const TYPE_ECRIVAIN = 2; // ID DU TYPE ECRIVAIN
+
+
+	/**
+	 * GETTER $fuc_id
+	 * @return int
+	 */
+	public function fucId(){
+		return $this->fuc_id;
+	}
+
 
 	/**
 	 * GETTER $fuc_nom
@@ -37,6 +48,10 @@ class Users extends Entity{
 		return $this->fuc_mdp;
 	}
 
+
+	public function setId($id){
+		$this->fuc_id = $id;
+	}
 
 	public function setNom($nom){
 		$this->fuc_nom = $nom;

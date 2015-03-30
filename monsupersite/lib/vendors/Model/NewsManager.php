@@ -15,6 +15,15 @@ abstract class NewsManager extends Manager
   abstract public function getList($debut = -1, $limite = -1);
 
 
+
+  /**
+   * GET BACK ALL NEWS WRITTEN BY THE WRITER
+   * @param  [INT] $authorId [AUTHOR ID]
+   * @return [type]           [description]
+   */
+  abstract public function getListauthor($authorId);
+
+
     /**
    * Méthode retournant une news précise.
    * @param $id int L'identifiant de la news à récupérer

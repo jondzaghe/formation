@@ -15,11 +15,27 @@ abstract class UsersManager extends Manager{
 	 */
 	abstract public function getMembre($login, $mdp);
 
+
+	/**
+	 * GET BACK A Membre FROM ITS ID
+	 * @param  [int] $id [User id]
+	 * @return [type]        [description]
+	 */
+	abstract public function getMembreId($id);
+
 	/**
 	 * RECUPERE LA LISTE DES ECRIVAINS
 	 * @return [type] [description]
 	 */
 	abstract public function getlisteEcrivain();
+
+
+	/**
+	 * DELETE ON USER
+	 * @param  [int] $id [User id]
+	 * @return [type]     [description]
+	 */
+	abstract public function delete($id);
 
 
 

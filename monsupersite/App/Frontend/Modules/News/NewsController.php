@@ -12,6 +12,10 @@ class NewsController extends BackController
 {
   public function executeIndex(HTTPRequest $request)
   {
+
+    $listItem = array();
+    $i = 0; //Loop counter
+
     $nombreNews = $this->app->config()->get('nombre_news');
     $nombreCaracteres = $this->app->config()->get('nombre_caracteres');
     
@@ -19,9 +23,12 @@ class NewsController extends BackController
     $this->page->addVar('title', 'Liste des '.$nombreNews.' dernières news');
     
     // On récupère le manager des news.
-    $manager = $this->managers->getManagerOf('News');
+    $managerNews = $this->managers->getManagerOf('News');
+
+    //we get back user manager
+    $managerUser = $this->managers->getManagerOf('Users');
     
-    $listeNews = $manager->getList(0, $nombreNews);
+    $listeNews = $managerNews->getList(0, $nombreNews);
     
     foreach ($listeNews as $news)
     {
@@ -32,10 +39,15 @@ class NewsController extends BackController
         
         $news->setContenu($debut);
       }
+
+      $listItem[$i]['news'] = $news;
+      $listItem[$i]['user'] = $managerUser->getMembreId($news['auteur']);
+
+      $i++;
     }
     
     // On ajoute la variable $listeNews à la vue.
-    $this->page->addVar('listeNews', $listeNews);
+    $this->page->addVar('listItem', $listItem);
   }
   
   public function executeShow(HTTPRequest $request)
@@ -126,5 +138,19 @@ class NewsController extends BackController
     {
       $this->page->addVar('comment', $this->managers->getManagerOf('Comments')->get($request->getData('id')));
     }
+  }
+
+
+  public function executeListNewsOfAuthor(HTTPRequest $request){
+
+      $manager = $this->managers->getManagerOf('News');
+
+      $userId = $request->getData('id');
+
+      echo "test";
+      $listNews = $manager->getListAuthor($userId);
+
+
+      $this->page->addVar('listNews', $listNews);
   }
 }
