@@ -94,8 +94,11 @@ class NewsController extends BackController
   {
     if ($request->method() == 'POST')
     {
+
+      $userId = $this->app->user()->getUser()->fucId();
+
       $news = new News([
-        'auteur' => $request->postData('auteur'),
+        'auteur' => $userId,
         'titre' => $request->postData('titre'),
         'contenu' => $request->postData('contenu')
       ]);
