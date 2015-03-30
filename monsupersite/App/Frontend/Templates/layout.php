@@ -22,6 +22,7 @@
           <li><a href="/">Accueil</a></li>
           <?php if (!$user->isAuthenticated()) { ?>
           <li><a href="/admin/">Connexion</a></li>
+          <li><a href="/signin/">Sign in</a></li>
           <?php } ?>
           <?php if ($user->isAuthenticated()) { ?>
               <?php if ($user->getUser()->fucType() == 1) { ?>

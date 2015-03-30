@@ -21,4 +21,17 @@ abstract class UsersManager extends Manager{
 	 */
 	abstract public function getlisteEcrivain();
 
+
+
+/**
+   * Méthode permettant d'enregistrer un user.
+   * @param $user Users à enregistrer
+   * @see self::add()
+   * @see self::modify()
+   * @return void
+   */
+  public function save(Users $user){
+    $this->add($user);
+  }
+
 }

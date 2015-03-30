@@ -33,6 +33,10 @@ class Users extends Entity{
 		return $this->fuc_fk_type;
 	}
 
+	public function fucMdp(){
+		return $this->fuc_mdp;
+	}
+
 
 	public function setNom($nom){
 		$this->fuc_nom = $nom;
