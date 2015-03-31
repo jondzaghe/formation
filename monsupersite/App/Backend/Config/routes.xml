@@ -6,6 +6,7 @@
 	<route url="/admin/news-delete-([0-9]+)\.html" module="News" action="delete" vars="id" />
 	<route url="/admin/gestionecrivain/user-delete-([0-9]+)\.html" module="User" action="delete" vars="id" />
 	<route url="/admin/comment-update-([0-9]+)\.html" module="News" action="updateComment" vars="id" />
+  	<route url="/admin/comment-delete-([0-9]+)\.html" module="News" action="deleteComment" vars="id" />
 	<route url="/admin/logout/" module="Connexion" action="logout"/>
 	<route url="/admin/gestionecrivain/" module="User" action="index"/>
 </routes> 

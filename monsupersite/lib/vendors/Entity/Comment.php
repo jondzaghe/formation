@@ -7,6 +7,7 @@ class Comment extends Entity
 {
   protected $news,
             $auteur,
+            $mail,
             $contenu,
             $date;
 
@@ -33,6 +34,11 @@ class Comment extends Entity
     $this->auteur = $auteur;
   }
 
+  public function setMail($mail)
+  {
+    $this->mail = $mail;
+  }
+
   public function setContenu($contenu)
   {
     if (!is_string($contenu) || empty($contenu))
@@ -56,6 +62,11 @@ class Comment extends Entity
   public function auteur()
   {
     return $this->auteur;
+  }
+
+  public function mail()
+  {
+    return $this->mail;
   }
 
   public function contenu()
