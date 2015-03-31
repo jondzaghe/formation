@@ -9,6 +9,8 @@ use \OCFram\FormHandler;
 use \OCFram\Form;
 use \OCFram\StringField;
 use \OCFram\TextField;
+use \OCFram\SendMail;
+use \OCFram\NewCommentSendMail;
 
 class NewsController extends BackController
 {
@@ -72,11 +74,20 @@ class NewsController extends BackController
     // Si le formulaire a été envoyé.
     if ($request->method() == 'POST')
     {
+
+      if($request->postData('averti')){
+          $bool = 1;
+      }
+      else{
+          $bool = 0;
+      }
+
       $comment = new Comment([
         'news' => $request->getData('news'),
         'mail' => $request->postData('mail'),
         'auteur' => $request->postData('auteur'),
-        'contenu' => $request->postData('contenu')
+        'contenu' => $request->postData('contenu'),
+        'averti' => $bool,
       ]);
     }
     else
@@ -94,6 +105,9 @@ class NewsController extends BackController
     if ($formHandler->process())
     {
       $this->app->user()->setFlash('Le commentaire a bien été ajouté, merci !');
+
+      //WE SEND THE MAIL
+      $this->newCommentSendMail($request->getData('news'), $comment);
  
       $this->app->httpResponse()->redirect('news-'.$request->getData('news').'.html');
     }
@@ -106,15 +120,17 @@ class NewsController extends BackController
 
   public function executeListNewsOfAuthor(HTTPRequest $request){
 
-      $manager = $this->managers->getManagerOf('News');
+      $managerNews = $this->managers->getManagerOf('News');
+      $managerUser = $this->managers->getManagerOf('Users');
 
       $userId = $request->getData('id');
 
       echo "test";
-      $listNews = $manager->getListAuthor($userId);
+      $listNews = $managerNews->getListAuthor($userId);
 
 
       $this->page->addVar('listNews', $listNews);
+      $this->page->addVar('writer', $managerUser->getMembreId($userId));
   }
 
 
@@ -123,11 +139,26 @@ class NewsController extends BackController
       //We get back the mail
       $mail = $request->getData('mail');
 
-      $managers = $this->managers->getManagerOf('News');
-      $listNews = $managers->getNewsCommentedByEmail($mail);
+      $managerNews = $this->managers->getManagerOf('News');
+      $listNews = $managerNews->getNewsCommentedByEmail($mail);
 
       $this->page->addVar('listNews', $listNews);
       $this->page->addVar('mail', $mail);
       $this->page->addVar('mail', $mail);
+  }
+
+
+  public function newCommentSendMail($newsId, $comment){
+
+
+      $managers = $this->managers->getManagerOf('Comments');
+      $listadressMail = $managers->getCommentMail($newsId);
+
+      $authorName = $comment->auteur();
+
+      $contenu = "Un nouveau commentaire vient d'etre ajouté par: $authorName";
+
+      $mailSender = New NewCommentSendMail($listadressMail, $contenu);
+      $mailSender->sendMail();
   }
 }
