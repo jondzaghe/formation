@@ -74,6 +74,7 @@ class NewsController extends BackController
     {
       $comment = new Comment([
         'news' => $request->getData('news'),
+        'mail' => $request->postData('mail'),
         'auteur' => $request->postData('auteur'),
         'contenu' => $request->postData('contenu')
       ]);
