@@ -24,6 +24,15 @@ abstract class NewsManager extends Manager
   abstract public function getListauthor($authorId);
 
 
+
+  /**
+   * GET BACK THE LIST OF NEWS COMMENTED BY THE MAIL
+   * @param  [STRING] $mail [THE MAIL OF THE AUTHOR]
+   * @return [type]       [description]
+   */
+  abstract public function getNewsCommentedByEmail($mail);
+
+
     /**
    * Méthode retournant une news précise.
    * @param $id int L'identifiant de la news à récupérer

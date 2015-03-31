@@ -56,6 +56,31 @@ class NewsManagerPDO extends NewsManager
   }
 
 
+
+
+  /**
+   * GET BACK THE LIST OF NEWS COMMENTED BY THE MAIL
+   * @param  [STRING] $mail [THE MAIL OF THE AUTHOR]
+   * @return [type]       [description]
+   */
+  public function getNewsCommentedByEmail($mail){
+      $requete = $this->dao->prepare('SELECT news.id , news.auteur, news.titre, news.contenu, news.dateAjout, news.dateModif FROM news 
+                                        INNER JOIN comments ON news.id = comments.news
+                                        WHERE comments.mail = :mail
+                                        GROUP BY news.id');
+      $requete->bindValue(':mail', $mail);
+
+      $requete->execute();
+
+      $requete->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\News');
+ 
+      $comments = $requete->fetchAll();
+
+      return $comments;
+  }
+
+
+
     public function getUnique($id)
   {
     $requete = $this->dao->prepare('SELECT id, concat(concat(fuc_nom, \' \'), fuc_prenom) AS auteur, titre, contenu, dateAjout, dateModif FROM news

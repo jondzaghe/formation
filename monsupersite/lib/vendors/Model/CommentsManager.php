@@ -50,6 +50,7 @@ abstract class CommentsManager extends Manager
    * @return array
    */
   abstract public function getListOf($news);
+
  
   /**
    * Méthode permettant de modifier un commentaire.
