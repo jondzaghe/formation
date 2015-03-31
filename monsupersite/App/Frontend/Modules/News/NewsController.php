@@ -116,4 +116,18 @@ class NewsController extends BackController
 
       $this->page->addVar('listNews', $listNews);
   }
+
+
+  public function executeGetNewsCommentedByEmail(HTTPRequest $request){
+      
+      //We get back the mail
+      $mail = $request->getData('mail');
+
+      $managers = $this->managers->getManagerOf('News');
+      $listNews = $managers->getNewsCommentedByEmail($mail);
+
+      $this->page->addVar('listNews', $listNews);
+      $this->page->addVar('mail', $mail);
+      $this->page->addVar('mail', $mail);
+  }
 }
