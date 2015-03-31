@@ -4,6 +4,7 @@ namespace FormBuilder;
 use \OCFram\FormBuilder;
 use \OCFram\StringField;
 use \OCFram\TextField;
+use \OCFram\CheckBoxField;
 use \OCFram\MaxLengthValidator;
 use \OCFram\NotNullValidator;
 
@@ -11,6 +12,7 @@ class CommentFormBuilder extends FormBuilder
 {
   public function build()
   {
+
     $this->form->add(new StringField([
         'label' => 'Auteur',
         'name' => 'auteur',
@@ -38,6 +40,13 @@ class CommentFormBuilder extends FormBuilder
         'validators' => [
           new NotNullValidator('Merci de spécifier votre commentaire'),
         ],
+       ]))
+       ->add(new CheckBoxfield([
+        'label' => 'Etre averti par mail des nouveaux commentaires',
+        'name' => 'averti',
+        'type' => 'checkbox',
+        'value' => 1,
+        'checked' => $this->form()->entity()->averti()
        ]));
   }
 }

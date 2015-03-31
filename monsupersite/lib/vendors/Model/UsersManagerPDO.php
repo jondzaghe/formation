@@ -104,7 +104,7 @@ class UsersManagerPDO extends UsersManager{
 
 	public function add($user){
 		$requete = $this->dao->prepare('INSERT INTO t_mem_userc (fuc_nom, fuc_prenom, fuc_mdp, fuc_fk_type)
-											VALUES (:fuc_id, :fuc_nom, :fuc_prenom, :fuc_mdp, :fuc_fk_fuy)');
+											VALUES (:fuc_nom, :fuc_prenom, :fuc_mdp, :fuc_fk_fuy)');
 		$requete->bindValue(':fuc_nom', $user->fucNom());
 		$requete->bindValue(':fuc_prenom', $user->fucPrenom());
 		$requete->bindValue(':fuc_mdp', $user->fucMdp());

@@ -65,4 +65,14 @@ abstract class CommentsManager extends Manager
    * @return Comment
    */
   abstract public function get($id);
+
+
+
+  /**
+   *  GET ALL COMMENT'S MAIL FORM NEWS WHERE THE USER WANT TO RECEIVE MAIL FOR NEW COMMENT
+   * @param $id L'identifiant du commentaire
+   * @return Comment
+   */
+  abstract public function getCommentMail($newsId);
+
 }

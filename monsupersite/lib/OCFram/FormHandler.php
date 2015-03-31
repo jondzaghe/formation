@@ -16,6 +16,12 @@ class FormHandler
  
   public function process()
   {
+    // var_dump($this->request->method());
+    // var_dump($this->form->isValid());
+    // if($this->request->method() == 'POST'){
+    //   var_dump($this->form->entity());
+    //   exit;
+    // }
     if($this->request->method() == 'POST' && $this->form->isValid())
     {
       $this->manager->save($this->form->entity());

@@ -3,6 +3,6 @@
   <p>
     <?= $form ?>
     
-    <input type="submit" value="Commenter" />
+    <p><input type="submit" value="Commenter" /></p>
   </p>
 </form>

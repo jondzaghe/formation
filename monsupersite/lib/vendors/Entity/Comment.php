@@ -9,7 +9,8 @@ class Comment extends Entity
             $auteur,
             $mail,
             $contenu,
-            $date;
+            $date,
+            $averti;
 
   const AUTEUR_INVALIDE = 1;
   const CONTENU_INVALIDE = 2;
@@ -18,6 +19,12 @@ class Comment extends Entity
   {
     return !(empty($this->auteur) || empty($this->contenu));
   }
+
+
+
+  /**
+  ** SETTER
+  **/
 
   public function setNews($news)
   {
@@ -54,6 +61,16 @@ class Comment extends Entity
     $this->date = $date;
   }
 
+  public function setAverti($bool)
+  {
+    $this->averti = $bool;
+  }
+
+
+ /**
+  ** GETTER
+  **/
+
   public function news()
   {
     return $this->news;
@@ -77,5 +94,10 @@ class Comment extends Entity
   public function date()
   {
     return $this->date;
+  }
+
+  public function averti()
+  {
+    return $this->averti;
   }
 }
