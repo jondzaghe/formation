@@ -94,7 +94,7 @@ class CommentsManagerPDO extends CommentsManager
                                     GROUP BY comments.mail');
 
       $q->bindValue(':id', $newsId);
-      $q->bindValue(':email', $$email);
+      $q->bindValue(':email', $email);
 
       $q->execute();
 
