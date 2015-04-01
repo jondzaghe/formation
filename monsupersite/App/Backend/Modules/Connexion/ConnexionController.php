@@ -20,16 +20,13 @@ class ConnexionController extends BackController
 
       $membre = $manager->getMembre($login, $password);
  
-      if ($membre != null)
-      {
-
+      if ($membre === null){
+          $this->app->user()->setFlash('Le pseudo ou le mot de passe est incorrect.');
+      }
+      else{
         $this->app->user()->setAuthenticated(true);
         $this->app->user()->setUser($membre);
         $this->app->httpResponse()->redirect('.');
-      }
-      else
-      {
-        $this->app->user()->setFlash('Le pseudo ou le mot de passe est incorrect.');
       }
     }
   }
