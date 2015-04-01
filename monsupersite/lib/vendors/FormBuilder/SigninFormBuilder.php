@@ -14,7 +14,7 @@ class SigninFormBuilder extends FormBuilder{
 
 	    $this->form->add(new StringField([
 	        'label' => 'Nom (login)',
-	        'name' => 'fucNom',
+	        'name' => 'fucLastname',
 	        'type' => 'text',
 	        'maxLength' => 50,
 	        'validators' => [
@@ -24,7 +24,7 @@ class SigninFormBuilder extends FormBuilder{
 	       ]))
 	       ->add(new StringField([
 	        'label' => 'Prenom',
-	        'name' => 'fucPrenom',
+	        'name' => 'fucFirstname',
 	        'type' => 'text',
 	        'maxLength' => 50,
 	        'validators' => [
@@ -34,7 +34,7 @@ class SigninFormBuilder extends FormBuilder{
 	       ]))
 	       ->add(new StringField([
 	        'label' => 'Mot de passe',
-	        'name' => 'fucMdp',
+	        'name' => 'fucPassword',
 	        'type' => 'password',
 	        'maxLength' => 50,
 	        'type' => 'password',

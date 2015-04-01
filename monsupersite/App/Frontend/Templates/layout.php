@@ -37,8 +37,9 @@
               <?php endif ; ?>
               <li><a href="/admin/news-insert.html">Ajouter une news</a></li>
               <li><a href="/admin/logout/">Déconnexion</a></li>
-              <li><a href="">Bonjour <?php echo $user->getAttribute('user')->fucNom(); ?></a></li>
+              <li><a href="">Bonjour <?php echo $user->getAttribute('user')->fucLastname(); ?></a></li>
           <?php endif ; ?>
+          <li><a href="/device.html">Your device</a></li>
         </ul>
       </nav>
       

@@ -28,7 +28,7 @@ class Users extends Entity{
 	 * GETTER $fuc_nom
 	 * @return String
 	 */
-	public function fucNom(){
+	public function fucLastname(){
 		return $this->fuc_nom;
 	}
 
@@ -36,7 +36,7 @@ class Users extends Entity{
 	 * GETTER $fuc_prenom
 	 * @return String
 	 */
-	public function fucPrenom(){
+	public function fucFirstName(){
 		return $this->fuc_prenom;
 	}
 
@@ -44,7 +44,7 @@ class Users extends Entity{
 		return $this->fuc_fk_type;
 	}
 
-	public function fucMdp(){
+	public function fucPassword(){
 		return $this->fuc_mdp;
 	}
 
@@ -53,12 +53,12 @@ class Users extends Entity{
 		$this->fuc_id = $id;
 	}
 
-	public function setNom($nom){
+	public function setLastname($nom){
 		$this->fuc_nom = $nom;
 	}
 
 
-	public function setPrenom($prenom){
+	public function setFirstname($prenom){
 		$this->fuc_prenom = $prenom;
 	}
 
@@ -67,7 +67,7 @@ class Users extends Entity{
 		$this->fuc_fk_type = $type;
 	}
 
-	public function setMdp($mdp){
+	public function setPassword($mdp){
 		$this->fuc_mdp = $mdp;
 	}
 

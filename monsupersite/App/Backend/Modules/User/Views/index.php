@@ -5,7 +5,7 @@
 <?php
 foreach ($listeEcrivain as $liste)
 {
-  echo '<tr><td>', $liste->fucNom(), '</td><td>', $liste->fucPrenom(), '</td><td><a href="user-delete-', $liste->fucId(), '.html"><img src="/images/delete.png" alt="Supprimer" /></a></td></tr>', "\n";
+  echo '<tr><td>', $liste->fucLastname(), '</td><td>', $liste->fucFirstname(), '</td><td><a href="user-delete-', $liste->fucId(), '.html"><img src="/images/delete.png" alt="Supprimer" /></a></td></tr>', "\n";
 }
 
 ?>

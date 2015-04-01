@@ -6,7 +6,7 @@ use \Entity\Users;
 class UsersManagerPDO extends UsersManager{
 
 	public function getUser($login, $mdp){
-		$requete = $this->dao->prepare('SELECT fuc_id, fuc_nom, fuc_prenom, fuc_mdp, fuc_fk_type FROM T_MEM_userc WHERE fuc_nom = :nom AND fuc_mdp = :mdp');
+		$requete = $this->dao->prepare('SELECT fuc_id, fuc_nom, fuc_prenom, fuc_mdp, fuc_fk_fuy FROM T_MEM_userc WHERE fuc_nom = :nom AND fuc_mdp = :mdp');
     
 	    $requete->bindValue(':nom', $login);
 	    $requete->bindValue(':mdp', $mdp);
@@ -20,10 +20,10 @@ class UsersManagerPDO extends UsersManager{
 	    	$user = new Users();
 
 	    	$user->setId($data['fuc_id']);
-	    	$user->setNom($data['fuc_nom']);
-	    	$user->setPrenom($data['fuc_prenom']);
-	    	$user->setMdp($data['fuc_mdp']);
-	    	$user->setType($data['fuc_fk_type']);
+	    	$user->setLastname($data['fuc_nom']);
+	    	$user->setFirstname($data['fuc_prenom']);
+	    	$user->setPassword($data['fuc_mdp']);
+	    	$user->setType($data['fuc_fk_fuy']);
 
 	    	return $user;
 	    }
@@ -34,7 +34,7 @@ class UsersManagerPDO extends UsersManager{
 
 
 	public function getUserId($id){
-		$requete = $this->dao->prepare('SELECT fuc_id, fuc_nom, fuc_prenom, fuc_mdp, fuc_fk_type FROM T_MEM_userc WHERE fuc_id = :id');
+		$requete = $this->dao->prepare('SELECT fuc_id, fuc_nom, fuc_prenom, fuc_mdp, fuc_fk_fuy FROM T_MEM_userc WHERE fuc_id = :id');
     
 	    $requete->bindValue(':id', $id);
 	    
@@ -51,10 +51,10 @@ class UsersManagerPDO extends UsersManager{
 	    	$user = new Users();
 
 	    	$user->setId($data['fuc_id']);
-	    	$user->setNom($data['fuc_nom']);
-	    	$user->setPrenom($data['fuc_prenom']);
-	    	$user->setMdp($data['fuc_mdp']);
-	    	$user->setType($data['fuc_fk_type']);
+	    	$user->setLastname($data['fuc_nom']);
+	    	$user->setFirstname($data['fuc_prenom']);
+	    	$user->setPassword($data['fuc_mdp']);
+	    	$user->setType($data['fuc_fk_fuy']);
 
 	    	return $user;
 	    }
@@ -70,7 +70,7 @@ class UsersManagerPDO extends UsersManager{
 
 		$listeEcrivain = array();
 
-		$requete = $this->dao->prepare('SELECT fuc_id, fuc_nom, fuc_prenom, fuc_mdp, fuc_fk_type FROM T_MEM_userc WHERE fuc_fk_type = :type');
+		$requete = $this->dao->prepare('SELECT fuc_id, fuc_nom, fuc_prenom, fuc_mdp, fuc_fk_fuy FROM T_MEM_userc WHERE fuc_fk_fuy = :type');
 
 		$requete->bindValue(':type', Users::TYPE_ECRIVAIN);
 
@@ -87,10 +87,10 @@ class UsersManagerPDO extends UsersManager{
 	    	foreach ($Listes as $liste){
 	    		$writer = new Users();
 	    		$writer->setId($liste['fuc_id']);
-	    		$writer->setNom($liste['fuc_nom']);
-	    		$writer->setPrenom($liste['fuc_prenom']);
-	    		$writer->setMdp($liste['fuc_mdp']);
-	    		$writer->setType($liste['fuc_fk_type']);
+	    		$writer->setLastname($liste['fuc_nom']);
+	    		$writer->setFirstname($liste['fuc_prenom']);
+	    		$writer->setPassword($liste['fuc_mdp']);
+	    		$writer->setType($liste['fuc_fk_fuy']);
 
 	    		$listeEcrivain[] = $writer;
 	    	}
@@ -101,11 +101,11 @@ class UsersManagerPDO extends UsersManager{
 
 
 	public function add($user){
-		$requete = $this->dao->prepare('INSERT INTO t_mem_userc (fuc_nom, fuc_prenom, fuc_mdp, fuc_fk_type)
+		$requete = $this->dao->prepare('INSERT INTO t_mem_userc (fuc_nom, fuc_prenom, fuc_mdp, fuc_fk_fuy)
 											VALUES (:fuc_nom, :fuc_prenom, :fuc_mdp, :fuc_fk_fuy)');
-		$requete->bindValue(':fuc_nom', $user->fucNom());
-		$requete->bindValue(':fuc_prenom', $user->fucPrenom());
-		$requete->bindValue(':fuc_mdp', $user->fucMdp());
+		$requete->bindValue(':fuc_nom', $user->fucLastname());
+		$requete->bindValue(':fuc_prenom', $user->fucFirstname());
+		$requete->bindValue(':fuc_mdp', $user->fucPassword());
 		$requete->bindValue(':fuc_fk_fuy', $user->fucType());
 
 		$requete->execute();

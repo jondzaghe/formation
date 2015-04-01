@@ -23,9 +23,9 @@ class SigninController extends BackController{
 
 		if ($request->method() == 'POST'){
 			$user = new Users([
-			'nom' => $request->postData('fucNom'),
-			'prenom' => $request->postData('fucPrenom'),
-			'mdp' => $request->postData('fucMdp'),
+			'lastname' => $request->postData('fucLastname'),
+			'firstname' => $request->postData('fucFirstname'),
+			'password' => $request->postData('fucPassword'),
 			'type' => 2,
 			]);
 	    }

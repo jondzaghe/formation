@@ -7,7 +7,7 @@ class NewsManagerPDO extends NewsManager
 {
   public function getList($debut = -1, $limite = -1)
   {
-    $sql = 'SELECT id , auteur, titre, contenu, dateAjout, dateModif FROM news 
+    $sql = 'SELECT id , auteur, titre, contenu, dateAjout, dateModif FROM t_mss_news 
                 ORDER BY id DESC';
     
     if ($debut != -1 || $limite != -1)
@@ -35,7 +35,7 @@ class NewsManagerPDO extends NewsManager
 
   public function getListauthor($authorId)
   {
-    $sql = 'SELECT id , auteur, titre, contenu, dateAjout, dateModif FROM news
+    $sql = 'SELECT id , auteur, titre, contenu, dateAjout, dateModif FROM t_mss_news
                 WHERE auteur = ' . $authorId .'
                 ORDER BY id DESC';
     
@@ -64,10 +64,10 @@ class NewsManagerPDO extends NewsManager
    * @return [type]       [description]
    */
   public function getNewsCommentedByEmail($mail){
-      $requete = $this->dao->prepare('SELECT news.id , news.auteur, news.titre, news.contenu, news.dateAjout, news.dateModif FROM news 
-                                        INNER JOIN comments ON news.id = comments.news
+      $requete = $this->dao->prepare('SELECT t_mss_news.id , t_mss_news.auteur, t_mss_news.titre, t_mss_news.contenu, t_mss_news.dateAjout, t_mss_news.dateModif FROM t_mss_news 
+                                        INNER JOIN comments ON t_mss_news.id = comments.news
                                         WHERE comments.mail = :mail
-                                        GROUP BY news.id , news.auteur, news.titre, news.contenu, news.dateAjout, news.dateModif');
+                                        GROUP BY t_mss_news.id , t_mss_news.auteur, t_mss_news.titre, t_mss_news.contenu, t_mss_news.dateAjout, t_mss_news.dateModif');
       $requete->bindValue(':mail', $mail);
 
       $requete->execute();
@@ -83,7 +83,7 @@ class NewsManagerPDO extends NewsManager
 
     public function getUnique($id)
   {
-    $requete = $this->dao->prepare('SELECT id, auteur, titre, contenu, dateAjout, dateModif FROM news
+    $requete = $this->dao->prepare('SELECT id, auteur, titre, contenu, dateAjout, dateModif FROM t_mss_news
                                       INNER JOIN t_mem_userc ON auteur = fuc_id
                                       WHERE id = :id');
     $requete->bindValue(':id', (int) $id, \PDO::PARAM_INT);
@@ -105,14 +105,14 @@ class NewsManagerPDO extends NewsManager
 
   public function count()
   {
-    return $this->dao->query('SELECT COUNT(*) FROM news')->fetchColumn();
+    return $this->dao->query('SELECT COUNT(*) FROM t_mss_news')->fetchColumn();
   }
 
 
 
   protected function add(News $news)
   {
-    $requete = $this->dao->prepare('INSERT INTO news SET auteur = :auteur, titre = :titre, contenu = :contenu, dateAjout = NOW(), dateModif = NOW()');
+    $requete = $this->dao->prepare('INSERT INTO t_mss_news SET auteur = :auteur, titre = :titre, contenu = :contenu, dateAjout = NOW(), dateModif = NOW()');
     
     $requete->bindValue(':titre', $news->titre());
     $requete->bindValue(':auteur', $news->auteur());
@@ -125,7 +125,7 @@ class NewsManagerPDO extends NewsManager
 
    protected function modify(News $news)
   {
-    $requete = $this->dao->prepare('UPDATE news SET auteur = :auteur, titre = :titre, contenu = :contenu, dateModif = NOW() WHERE id = :id');
+    $requete = $this->dao->prepare('UPDATE t_mss_news SET auteur = :auteur, titre = :titre, contenu = :contenu, dateModif = NOW() WHERE id = :id');
     
     $requete->bindValue(':titre', $news->titre());
     $requete->bindValue(':auteur', $news->auteur());

@@ -89,8 +89,8 @@ class CommentsManagerPDO extends CommentsManager
    */
   public function getCommentMail($newsId, $email){
       $q = $this->dao->prepare('SELECT comments.mail FROM comments 
-                                    INNER JOIN news ON news.id = comments.news
-                                    WHERE news.id = :id AND avertissement = 1 AND comments.mail != :email
+                                    INNER JOIN t_mss_news ON t_mss_news.id = comments.news
+                                    WHERE t_mss_news.id = :id AND avertissement = 1 AND comments.mail != :email
                                     GROUP BY comments.mail');
 
       $q->bindValue(':id', $newsId);
