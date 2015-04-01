@@ -29,7 +29,7 @@
               <li><a href="/signin/">Sign in</a></li>
           <?php else : ?>
               <?php if ($user->getUser()->fucType() == 2) : ?>
-                  <li><a href="/writer/news/">Vos news</a></li>
+                  <li><a href="/writer-<?php echo $user->getUser()->fucId() ?>/news/">Vos news</a></li>
               <?php endif ; ?>
               <?php if ($user->getUser()->fucType() == 1) : ?>
                   <li><a href="/admin/">Admin</a></li>
