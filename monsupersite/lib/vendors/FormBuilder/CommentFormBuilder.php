@@ -7,6 +7,7 @@ use \OCFram\TextField;
 use \OCFram\CheckBoxField;
 use \OCFram\MaxLengthValidator;
 use \OCFram\NotNullValidator;
+use \OCFram\EmailValidator;
 
 class CommentFormBuilder extends FormBuilder
 {
@@ -30,6 +31,7 @@ class CommentFormBuilder extends FormBuilder
         'validators' => [
           new MaxLengthValidator('L\'email spécifié est trop long (100 caracteres max)', 50),
           new NotNullValidator('Merci de spécifier votre adresse mail'),
+          new EmailValidator('Merci de spécifier une adresse mail valide'),
         ],
        ]))
        ->add(new TextField([

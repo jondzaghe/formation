@@ -152,7 +152,7 @@ class NewsController extends BackController
 
 
       $managers = $this->managers->getManagerOf('Comments');
-      $listadressMail = $managers->getCommentMail($newsId);
+      $listadressMail = $managers->getCommentMail($newsId, $comment->mail());
 
       $authorName = $comment->auteur();
 
