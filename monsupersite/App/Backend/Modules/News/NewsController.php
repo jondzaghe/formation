@@ -44,12 +44,19 @@ class NewsController extends BackController
  
   public function executeIndex(HTTPRequest $request)
   {
-    $this->page->addVar('title', 'Gestion des news');
- 
-    $manager = $this->managers->getManagerOf('News');
- 
-    $this->page->addVar('listeNews', $manager->getList());
-    $this->page->addVar('nombreNews', $manager->count());
+
+    if($this->app->user()->getUser()->fucType() != 1){
+
+        $this->app->httpResponse()->redirect('../');
+    }
+    else{
+        $this->page->addVar('title', 'Gestion des news');
+     
+        $manager = $this->managers->getManagerOf('News');
+     
+        $this->page->addVar('listeNews', $manager->getList());
+        $this->page->addVar('nombreNews', $manager->count());
+    }
   }
  
   public function executeInsert(HTTPRequest $request)

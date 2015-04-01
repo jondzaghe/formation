@@ -85,7 +85,7 @@ class CommentsManagerPDO extends CommentsManager
   /**
    *  GET ALL COMMENT'S MAIL FORM NEWS WHERE THE USER WANT TO RECEIVE MAIL FOR NEW COMMENT
    * @param $id L'identifiant du commentaire
-   * @return Comment
+   * @return string[] an email list 
    */
   public function getCommentMail($newsId){
       $q = $this->dao->prepare('SELECT comments.mail FROM comments 
@@ -97,6 +97,6 @@ class CommentsManagerPDO extends CommentsManager
 
       $q->execute();
 
-      return $q->FetchAll();
+      return $q->FetchAll(\PDO::FETCH_COLUMN);
   }
 }

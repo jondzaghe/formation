@@ -71,4 +71,9 @@ class Users extends Entity{
 		$this->fuc_mdp = $mdp;
 	}
 
+	public function getUrlName(){
+
+		return str_replace(" ", "-", $this->fuc_nom. " ".$this->fuc_prenom);
+	}
+
 }

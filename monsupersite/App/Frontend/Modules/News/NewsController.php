@@ -158,7 +158,7 @@ class NewsController extends BackController
 
       $contenu = "Un nouveau commentaire vient d'etre ajouté par: $authorName";
 
-      $mailSender = New NewCommentSendMail($listadressMail, $contenu);
+      $mailSender = New NewCommentSendMail(array('mails'=>$listadressMail,'contenu'=> $contenu));
       $mailSender->sendMail();
   }
 }

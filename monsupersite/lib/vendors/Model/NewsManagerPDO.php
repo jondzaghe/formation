@@ -67,7 +67,7 @@ class NewsManagerPDO extends NewsManager
       $requete = $this->dao->prepare('SELECT news.id , news.auteur, news.titre, news.contenu, news.dateAjout, news.dateModif FROM news 
                                         INNER JOIN comments ON news.id = comments.news
                                         WHERE comments.mail = :mail
-                                        GROUP BY news.id');
+                                        GROUP BY news.id , news.auteur, news.titre, news.contenu, news.dateAjout, news.dateModif');
       $requete->bindValue(':mail', $mail);
 
       $requete->execute();
