@@ -15,12 +15,8 @@ class UsersManagerPDO extends UsersManager{
 
 	    //WE CHECK THE NUMBER OF ROW RETURNED
 	    
-	    if($requete->rowcount() == 0)
-	    	return null;
-	    else{
-	    	if($requete->rowcount() == 1)
-	    	//WE GET THE USER DATAS AND WE INSTANCIATE A NEW USER
-	    	$data =  $requete->fetch();
+	    if($data =  $requete->fetch()){
+
 	    	$user = new Users();
 
 	    	$user->setId($data['fuc_id']);
@@ -31,6 +27,8 @@ class UsersManagerPDO extends UsersManager{
 
 	    	return $user;
 	    }
+	    
+	    return null;
 	}
 
 
