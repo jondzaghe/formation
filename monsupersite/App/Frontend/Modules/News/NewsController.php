@@ -45,7 +45,7 @@ class NewsController extends BackController
       }
 
       $listItem[$i]['news'] = $news;
-      $listItem[$i]['user'] = $managerUser->getMembreId($news['auteur']);
+      $listItem[$i]['user'] = $managerUser->getUserId($news['auteur']);
 
       $i++;
     }
@@ -130,7 +130,7 @@ class NewsController extends BackController
 
 
       $this->page->addVar('listNews', $listNews);
-      $this->page->addVar('writer', $managerUser->getMembreId($userId));
+      $this->page->addVar('writer', $managerUser->getUserId($userId));
   }
 
 

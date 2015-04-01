@@ -13,15 +13,15 @@ abstract class UsersManager extends Manager{
 	 * @param  STRING $mdp   [description]
 	 * @return users        [description]
 	 */
-	abstract public function getMembre($login, $mdp);
+	abstract public function getUser($login, $mdp);
 
 
 	/**
-	 * GET BACK A Membre FROM ITS ID
+	 * GET BACK A User FROM ITS ID
 	 * @param  [int] $id [User id]
 	 * @return [type]        [description]
 	 */
-	abstract public function getMembreId($id);
+	abstract public function getUserId($id);
 
 	/**
 	 * RECUPERE LA LISTE DES ECRIVAINS

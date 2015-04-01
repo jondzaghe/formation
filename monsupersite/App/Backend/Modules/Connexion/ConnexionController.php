@@ -18,14 +18,14 @@ class ConnexionController extends BackController
       // On récupère le manager des users
       $manager = $this->managers->getManagerOf('Users');
 
-      $membre = $manager->getMembre($login, $password);
+      $user = $manager->getUser($login, $password);
  
-      if ($membre === null){
+      if ($user === null){
           $this->app->user()->setFlash('Le pseudo ou le mot de passe est incorrect.');
       }
       else{
         $this->app->user()->setAuthenticated(true);
-        $this->app->user()->setAttribute('user', $membre);
+        $this->app->user()->setAttribute('user', $user);
         $this->app->httpResponse()->redirect('.');
       }
     }

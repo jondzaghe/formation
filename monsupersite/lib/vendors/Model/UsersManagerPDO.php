@@ -5,7 +5,7 @@ use \Entity\Users;
 
 class UsersManagerPDO extends UsersManager{
 
-	public function getMembre($login, $mdp){
+	public function getUser($login, $mdp){
 		$requete = $this->dao->prepare('SELECT fuc_id, fuc_nom, fuc_prenom, fuc_mdp, fuc_fk_type FROM T_MEM_userc WHERE fuc_nom = :nom AND fuc_mdp = :mdp');
     
 	    $requete->bindValue(':nom', $login);
@@ -33,7 +33,7 @@ class UsersManagerPDO extends UsersManager{
 
 
 
-	public function getMembreId($id){
+	public function getUserId($id){
 		$requete = $this->dao->prepare('SELECT fuc_id, fuc_nom, fuc_prenom, fuc_mdp, fuc_fk_type FROM T_MEM_userc WHERE fuc_id = :id');
     
 	    $requete->bindValue(':id', $id);
