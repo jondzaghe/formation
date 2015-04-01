@@ -9,8 +9,8 @@ class NewCommentSendMail extends SendMail{
 	public function sendMail(){
 
 		foreach($this->mails AS $mail){
-			mail($mail, 'New Comment', $contenu);
-
+			//mail($mail, 'New Comment', $contenu);
+			echo "Envoie du mail à ". $mail;
 		}
 	}
 
