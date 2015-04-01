@@ -13,7 +13,10 @@ class NewsController extends BackController
 {
   public function executeDelete(HTTPRequest $request){
 
-    if($this->app->user()->getUser()->fucType() == 1){
+    $Userid = $this->app->user()->getAttribute('user')->fucId();
+    $news = $this->managers->getManagerOf('News')->getUnique($request->getData('id'));
+
+    if($this->app->user()->getAttribute('user')->fucType() == 1 || $UserId = $news['author']){
         $newsId = $request->getData('id');
      
         $this->managers->getManagerOf('News')->delete($newsId);
@@ -30,7 +33,7 @@ class NewsController extends BackController
  
   public function executeDeleteComment(HTTPRequest $request)
   {
-    if($this->app->user()->getUser()->fucType() == 1){
+    if($this->app->user()->getAttribute('user')->fucType() == 1){
         $this->managers->getManagerOf('Comments')->delete($request->getData('id'));
      
         $this->app->user()->setFlash('Le commentaire a bien été supprimé !');
@@ -45,7 +48,7 @@ class NewsController extends BackController
   public function executeIndex(HTTPRequest $request)
   {
 
-    if($this->app->user()->getUser()->fucType() != 1){
+    if($this->app->user()->getAttribute('user')->fucType() != 1){
 
         $this->app->httpResponse()->redirect('../');
     }
@@ -61,6 +64,7 @@ class NewsController extends BackController
  
   public function executeInsert(HTTPRequest $request)
   {
+
     $this->processForm($request);
  
     $this->page->addVar('title', 'Ajout d\'une news');
@@ -68,15 +72,24 @@ class NewsController extends BackController
  
   public function executeUpdate(HTTPRequest $request)
   {
-    $this->processForm($request);
- 
-    $this->page->addVar('title', 'Modification d\'une news');
+    $UserId = $this->app->user()->getAttribute('user')->fucId();
+    $news = $this->managers->getManagerOf('News')->getUnique($request->getData('id'));
+
+
+    if($this->app->user()->getAttribute('user')->fucType() != 1 && $UserId != $news['auteur']){
+
+        $this->app->httpResponse()->redirect('../');
+    }
+    else{
+        $this->processForm($request);
+        $this->page->addVar('title', 'Modification d\'une news');  
+    }
   }
  
   public function executeUpdateComment(HTTPRequest $request)
   {
 
-    if($this->app->user()->getUser()->fucType() == 1){
+    if($this->app->user()->getAttribute('user')->fucType() == 1){
         $this->page->addVar('title', 'Modification d\'un commentaire');
      
         if ($request->method() == 'POST')
@@ -129,7 +142,7 @@ class NewsController extends BackController
     if ($request->method() == 'POST')
     {
 
-      $userId = $this->app->user()->getUser()->fucId();
+      $userId = $this->app->user()->getAttribute('user')->fucId();
 
       $news = new News([
         'auteur' => $userId,

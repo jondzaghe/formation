@@ -13,7 +13,7 @@ class UserController extends BackController
 
 
    public function executeIndex(HTTPRequest $request){
-    if($this->app->user()->getUser()->fucType() == 1){
+    if($this->app->user()->getAttribute('user')->fucType() == 1){
         $this->page->addVar('title', 'Gestion des Ecrivain');
      
         $manager = $this->managers->getManagerOf('Users');
@@ -27,7 +27,7 @@ class UserController extends BackController
 
   public function executeDelete(HttpRequest $request){
 
-    if($this->app->user()->getUser()->fucType() == 1){
+    if($this->app->user()->getAttribute('user')->fucType() == 1){
       	$manager = $this->managers->getManagerOf('Users');
 
     	  $userId = $request->getData('id');
@@ -38,6 +38,19 @@ class UserController extends BackController
         $this->app->httpResponse()->redirect('../');
     }
 
+  }
+
+
+  public function executeWriterNews(HttpRequest $request){
+      if($this->app->user()->getAttribute('user')->fucType() != 2){
+        $this->app->httpResponse()->redirect('.');
+    }
+    else{
+        
+        $listNews = $this->managers->getManagerOf('News')->getListAuthor($request->getData('id')); 
+        $this->page->addVar('title', 'Liste des news');
+        $this->page->addVar('listNews', $listNews);
+    }
   }
 
 
