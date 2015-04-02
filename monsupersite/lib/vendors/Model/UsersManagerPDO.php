@@ -69,7 +69,7 @@ class UsersManagerPDO extends UsersManager{
 
 		$listAdmin = array();
 
-		$requete = $this->dao->prepare('SELECT fuc_id, fuc_nom, fuc_prenom, fuc_mdp, fuc_fk_fuy FROM T_MEM_userc WHERE fuc_fk_fuy = :type');
+		$requete = $this->dao->prepare('SELECT fuc_id, fuc_nom, fuc_prenom, fuc_mail, fuc_mdp, fuc_fk_fuy FROM T_MEM_userc WHERE fuc_fk_fuy = :type');
 
 		$requete->bindValue(':type', Users::TYPE_ADMIN);
 
@@ -88,6 +88,7 @@ class UsersManagerPDO extends UsersManager{
 	    		$writer->setId($liste['fuc_id']);
 	    		$writer->setLastname($liste['fuc_nom']);
 	    		$writer->setFirstname($liste['fuc_prenom']);
+	    		$writer->setMail($liste['fuc_mail']);
 	    		$writer->setPassword($liste['fuc_mdp']);
 	    		$writer->setType($liste['fuc_fk_fuy']);
 
@@ -110,7 +111,7 @@ class UsersManagerPDO extends UsersManager{
 
 		$listeEcrivain = array();
 
-		$requete = $this->dao->prepare('SELECT fuc_id, fuc_nom, fuc_prenom, fuc_mdp, fuc_fk_fuy FROM T_MEM_userc WHERE fuc_fk_fuy = :type');
+		$requete = $this->dao->prepare('SELECT fuc_id, fuc_nom, fuc_prenom, fuc_mail, fuc_mdp, fuc_fk_fuy FROM T_MEM_userc WHERE fuc_fk_fuy = :type');
 
 		$requete->bindValue(':type', Users::TYPE_ECRIVAIN);
 
@@ -129,6 +130,7 @@ class UsersManagerPDO extends UsersManager{
 	    		$writer->setId($liste['fuc_id']);
 	    		$writer->setLastname($liste['fuc_nom']);
 	    		$writer->setFirstname($liste['fuc_prenom']);
+	    		$writer->setMail($liste['fuc_mail']);
 	    		$writer->setPassword($liste['fuc_mdp']);
 	    		$writer->setType($liste['fuc_fk_fuy']);
 

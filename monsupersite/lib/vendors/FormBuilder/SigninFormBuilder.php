@@ -47,7 +47,7 @@ class SigninFormBuilder extends FormBuilder{
 	       ]))
 	       ->add(new StringField([
 	        'label' => 'Confirmation Mot de passe',
-	        'name' => 'fucPassword',
+	        'name' => 'passwordConfirmation',
 	        'type' => 'password',
 	        'maxLength' => 50,
 	        'type' => 'password',
