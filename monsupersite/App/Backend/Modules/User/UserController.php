@@ -14,11 +14,12 @@ class UserController extends BackController
 
    public function executeIndex(HTTPRequest $request){
     if($this->app->user()->getAttribute('user')->fucType() == 1){
-        $this->page->addVar('title', 'Gestion des Ecrivain');
+        $this->page->addVar('title', 'Gestion des utilisateurs');
      
         $manager = $this->managers->getManagerOf('Users');
      
-        $this->page->addVar('listeEcrivain', $manager->getListeEcrivain());
+        $this->page->addVar('listWriter', $manager->getListeEcrivain());
+        $this->page->addVar('listAdmin', $manager->getAdmin_a());
     }
     else{
         $this->app->httpResponse()->redirect('../');
@@ -32,7 +33,7 @@ class UserController extends BackController
 
     	  $userId = $request->getData('id');
       	$manager->delete($userId);
-      	$this->app->httpResponse()->redirect('.');
+      	$this->app->httpResponse()->redirect('/admin/usermanagment.html');
     }
     else{
         $this->app->httpResponse()->redirect('../');

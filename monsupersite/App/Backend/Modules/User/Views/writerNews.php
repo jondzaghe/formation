@@ -10,3 +10,5 @@ foreach ($listNews as $news)
 
 ?>
 </table>
+
+<a href="../../news-insert.html"><h1><img src="/images/update.png" alt="Modifier" /> &nbsp; Ajouter une news</h1></a>

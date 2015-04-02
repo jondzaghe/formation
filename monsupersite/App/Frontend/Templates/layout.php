@@ -26,16 +26,14 @@
           <li><a href="/">Accueil</a></li>
           <?php if (!$user->isAuthenticated()) : ?>
               <li><a href="/admin/">Connexion</a></li>
-              <li><a href="/signin/">Sign in</a></li>
           <?php else : ?>
               <?php if ($user->getAttribute('user')->fucType() == 2) : ?>
                   <li><a href="/admin/writer-<?php echo $user->getAttribute('user')->fucId() ?>/news/">Vos news</a></li>
               <?php endif ; ?>
               <?php if ($user->getAttribute('user')->fucType() == 1) : ?>
                   <li><a href="/admin/">Admin</a></li>
-                  <li><a href="/admin/gestionecrivain/">Gestion Ecrivain</a></li>
+                  <li><a href="/admin/usermanagment.html">Gestion des utilisateurs</a></li>
               <?php endif ; ?>
-              <li><a href="/admin/news-insert.html">Ajouter une news</a></li>
               <li><a href="/admin/logout/">Déconnexion</a></li>
               <li><a href="">Bonjour <?php echo $user->getAttribute('user')->fucLastname(); ?></a></li>
           <?php endif ; ?>

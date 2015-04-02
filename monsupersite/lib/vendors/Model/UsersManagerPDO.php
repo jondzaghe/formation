@@ -61,6 +61,46 @@ class UsersManagerPDO extends UsersManager{
 	}
 
 
+	/**
+	 * GET THE ADMIN'S LIST
+	 * @return [Users] [List of users]
+	 */
+	public function getAdmin_a(){
+
+		$listAdmin = array();
+
+		$requete = $this->dao->prepare('SELECT fuc_id, fuc_nom, fuc_prenom, fuc_mdp, fuc_fk_fuy FROM T_MEM_userc WHERE fuc_fk_fuy = :type');
+
+		$requete->bindValue(':type', Users::TYPE_ADMIN);
+
+		$requete->execute();
+
+		if($requete->rowcount() == 0)
+	    	$listeAdmin = null;
+	    else{
+	    	$Listes = $requete->FetchAll();
+
+	    	/**
+	    	 * For each loop, we create a new user and we add it to the listeAdmin
+	    	 */
+	    	foreach ($Listes as $liste){
+	    		$writer = new Users();
+	    		$writer->setId($liste['fuc_id']);
+	    		$writer->setLastname($liste['fuc_nom']);
+	    		$writer->setFirstname($liste['fuc_prenom']);
+	    		$writer->setPassword($liste['fuc_mdp']);
+	    		$writer->setType($liste['fuc_fk_fuy']);
+
+	    		$listeAdmin[] = $writer;
+	    	}
+	    }
+
+	    return $listeAdmin;
+}
+
+
+
+
 
 	/**
 	 * RETURN THE LISTE OF WRITER
@@ -101,11 +141,12 @@ class UsersManagerPDO extends UsersManager{
 
 
 	public function add($user){
-		$requete = $this->dao->prepare('INSERT INTO t_mem_userc (fuc_nom, fuc_prenom, fuc_mdp, fuc_fk_fuy)
-											VALUES (:fuc_nom, :fuc_prenom, :fuc_mdp, :fuc_fk_fuy)');
+		$requete = $this->dao->prepare('INSERT INTO t_mem_userc (fuc_nom, fuc_prenom, fuc_mdp, fuc_mail, fuc_fk_fuy)
+											VALUES (:fuc_nom, :fuc_prenom, :fuc_mdp, :fuc_mail, :fuc_fk_fuy)');
 		$requete->bindValue(':fuc_nom', $user->fucLastname());
 		$requete->bindValue(':fuc_prenom', $user->fucFirstname());
 		$requete->bindValue(':fuc_mdp', $user->fucPassword());
+		$requete->bindValue(':fuc_mail', $user->fucMail());
 		$requete->bindValue(':fuc_fk_fuy', $user->fucType());
 
 		$requete->execute();

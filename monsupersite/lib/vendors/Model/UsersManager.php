@@ -31,6 +31,13 @@ abstract class UsersManager extends Manager{
 
 
 	/**
+	 * GET THE ADMIN'S LIST
+	 * @return [Users] [List of users]
+	 */
+	abstract public function getAdmin_a();
+
+
+	/**
 	 * DELETE ON USER
 	 * @param  [int] $id [User id]
 	 * @return [type]     [description]

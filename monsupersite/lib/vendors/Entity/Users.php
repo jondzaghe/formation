@@ -9,6 +9,8 @@ class Users extends Entity{
 				$fuc_nom,
 				$fuc_prenom,
 				$fuc_mdp,
+				$fuc_mail,
+				$passwordConfirmation,
 				$fuc_fk_type;
 
 	const TYPE_ADMIN = 1; // ID DU TYPE ADMIN
@@ -48,6 +50,15 @@ class Users extends Entity{
 		return $this->fuc_mdp;
 	}
 
+	public function fucMail(){
+		return $this->fuc_mail;
+	}
+
+
+	public function passwordConfirmation(){
+		return $this->mailConfirmation;
+	}
+
 
 	public function setId($id){
 		$this->fuc_id = $id;
@@ -69,6 +80,14 @@ class Users extends Entity{
 
 	public function setPassword($mdp){
 		$this->fuc_mdp = $mdp;
+	}
+
+	public function setMail($mail){
+		$this->fuc_mail = $mail;
+	}
+
+	public function setpasswordConfirmation($mail){
+		$this->mailConfirmation = $mail;
 	}
 
 	public function getUrlName(){

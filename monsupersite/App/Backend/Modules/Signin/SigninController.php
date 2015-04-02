@@ -1,5 +1,5 @@
 <?php
-namespace App\Frontend\Modules\Signin;
+namespace App\Backend\Modules\Signin;
 
 use \OCFram\BackController;
 use \OCFram\HTTPRequest;
@@ -25,8 +25,9 @@ class SigninController extends BackController{
 			$user = new Users([
 			'lastname' => $request->postData('fucLastname'),
 			'firstname' => $request->postData('fucFirstname'),
+			'mail' => $request->postData('fucMail'),
 			'password' => $request->postData('fucPassword'),
-			'type' => 2,
+			'type' => $request->postData('fucType'),
 			]);
 	    }
 	    else{
@@ -42,7 +43,7 @@ class SigninController extends BackController{
 
     	if ($formHandler->process()){
       		$this->app->user()->setFlash('Compte créé');
-      		$this->app->httpResponse()->redirect('/admin/');
+      		$this->app->httpResponse()->redirect('/admin/usermanagment.html');
     	}
  
    		$this->page->addVar('form', $form->createView());
