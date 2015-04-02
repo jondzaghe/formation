@@ -1,0 +1,1 @@
+<h1 style="text-align: center; color: #f00;">Vous n'avez pas les droits suffisants pour acceder à cette page !!!</h1>

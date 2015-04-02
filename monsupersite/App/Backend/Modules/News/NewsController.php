@@ -4,6 +4,7 @@ namespace App\Backend\Modules\News;
 use \OCFram\BackController;
 use \OCFram\HTTPRequest;
 use \Entity\News;
+use \Entity\Users;
 use \Entity\Comment;
 use \FormBuilder\CommentFormBuilder;
 use \FormBuilder\NewsFormBuilder;
@@ -16,7 +17,7 @@ class NewsController extends BackController
     $Userid = $this->app->user()->getAttribute('user')->fucId();
     $news = $this->managers->getManagerOf('News')->getUnique($request->getData('id'));
 
-    if($this->app->user()->getAttribute('user')->fucType() == 1 || $UserId = $news['author']){
+    if($this->app->user()->getAttribute('user')->fucType() == Users::TYPE_ADMIN || $UserId = $news['author']){
         $newsId = $request->getData('id');
      
         $this->managers->getManagerOf('News')->delete($newsId);
@@ -27,13 +28,13 @@ class NewsController extends BackController
         $this->app->httpResponse()->redirect('.');
     }
     else{
-        $this->app->httpResponse()->redirect('.');
+        $this->app->httpResponse()->redirect('/accessError.html');
     }
   }
  
   public function executeDeleteComment(HTTPRequest $request)
   {
-    if($this->app->user()->getAttribute('user')->fucType() == 1){
+    if($this->app->user()->getAttribute('user')->fucType() == Users::TYPE_ADMIN){
         $this->managers->getManagerOf('Comments')->delete($request->getData('id'));
      
         $this->app->user()->setFlash('Le commentaire a bien été supprimé !');
@@ -41,14 +42,14 @@ class NewsController extends BackController
         $this->app->httpResponse()->redirect('.');
     }
     else{
-        $this->app->httpResponse()->redirect('.');
+        $this->app->httpResponse()->redirect('/accessError.html');
     }
   }
  
   public function executeIndex(HTTPRequest $request)
   {
 
-    if($this->app->user()->getAttribute('user')->fucType() != 1){
+    if($this->app->user()->getAttribute('user')->fucType() != Users::TYPE_ADMIN){
 
         $this->app->httpResponse()->redirect('../');
     }
@@ -76,9 +77,9 @@ class NewsController extends BackController
     $news = $this->managers->getManagerOf('News')->getUnique($request->getData('id'));
 
 
-    if($this->app->user()->getAttribute('user')->fucType() != 1 && $UserId != $news['auteur']){
+    if($this->app->user()->getAttribute('user')->fucType() != Users::TYPE_ADMIN && $UserId != $news['auteur']){
 
-        $this->app->httpResponse()->redirect('../');
+        $this->app->httpResponse()->redirect('/accessError.html');
     }
     else{
         $this->processForm($request);
@@ -133,7 +134,7 @@ class NewsController extends BackController
         $this->page->addVar('form', $form->createView());
     }
     else{
-        $this->app->httpResponse()->redirect('.');
+        $this->app->httpResponse()->redirect('/accessError.html');
     }
   }
  

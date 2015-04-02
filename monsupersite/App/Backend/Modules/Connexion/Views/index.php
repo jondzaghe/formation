@@ -9,3 +9,5 @@
  
   <input type="submit" value="Connexion" />
 </form>
+
+ <p><br><a href="/passwordlost.html">Mot de passe perdu ?</a><br><br></p>

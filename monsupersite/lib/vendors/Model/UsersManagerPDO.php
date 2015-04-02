@@ -33,6 +33,34 @@ class UsersManagerPDO extends UsersManager{
 
 
 
+	public function getUserByLogin($login){
+		$requete = $this->dao->prepare('SELECT fuc_id, fuc_nom, fuc_prenom, fuc_mail, fuc_mdp, fuc_fk_fuy FROM T_MEM_userc WHERE fuc_nom = :nom');
+    
+	    $requete->bindValue(':nom', $login);
+	    
+	    $requete->execute();
+
+	    //WE CHECK THE NUMBER OF ROW RETURNED
+	    
+	    if($data =  $requete->fetch()){
+
+	    	$user = new Users();
+
+	    	$user->setId($data['fuc_id']);
+	    	$user->setLastname($data['fuc_nom']);
+	    	$user->setFirstname($data['fuc_prenom']);
+	    	$user->setMail($data['fuc_mail']);
+	    	$user->setPassword($data['fuc_mdp']);
+	    	$user->setType($data['fuc_fk_fuy']);
+
+	    	return $user;
+	    }
+	    
+	    return null;
+	}
+
+
+
 	public function getUserId($id){
 		$requete = $this->dao->prepare('SELECT fuc_id, fuc_nom, fuc_prenom, fuc_mdp, fuc_fk_fuy FROM T_MEM_userc WHERE fuc_id = :id');
     

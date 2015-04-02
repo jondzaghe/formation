@@ -4,6 +4,7 @@ namespace App\Backend\Modules\User;
 use \OCFram\BackController;
 use \OCFram\HTTPRequest;
 use \Entity\Comment;
+use \Entity\Users;
 use \OCFram\Form;
 use \OCFram\StringField;
 use \OCFram\TextField;
@@ -22,7 +23,7 @@ class UserController extends BackController
         $this->page->addVar('listAdmin', $manager->getAdmin_a());
     }
     else{
-        $this->app->httpResponse()->redirect('../');
+        $this->app->httpResponse()->redirect('/accessError.html');
     }
   }
 
