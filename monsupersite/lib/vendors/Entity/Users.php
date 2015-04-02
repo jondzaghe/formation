@@ -56,7 +56,7 @@ class Users extends Entity{
 
 
 	public function passwordConfirmation(){
-		return $this->mailConfirmation;
+		return $this->passwordConfirmation;
 	}
 
 
@@ -86,8 +86,8 @@ class Users extends Entity{
 		$this->fuc_mail = $mail;
 	}
 
-	public function setpasswordConfirmation($mail){
-		$this->mailConfirmation = $mail;
+	public function setpasswordConfirmation($password){
+		$this->passwordConfirmation = $password;
 	}
 
 	public function getUrlName(){

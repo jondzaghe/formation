@@ -27,6 +27,7 @@ class SigninController extends BackController{
 			'firstname' => $request->postData('fucFirstname'),
 			'mail' => $request->postData('fucMail'),
 			'password' => $request->postData('fucPassword'),
+			'passwordConfirmation' => $request->postData('passwordConfirmation'),
 			'type' => $request->postData('fucType'),
 			]);
 	    }

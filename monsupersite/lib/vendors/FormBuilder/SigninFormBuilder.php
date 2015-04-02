@@ -7,6 +7,7 @@ use \OCFram\TextField;
 use \OCFram\SelectField;
 use \OCFram\MaxLengthValidator;
 use \OCFram\NotNullValidator;
+use \OCFram\PasswordValidator;
 use \OCFram\EmailValidator;
 
  
@@ -54,6 +55,7 @@ class SigninFormBuilder extends FormBuilder{
 	        'validators' => [
 	          new MaxLengthValidator('Le prenom spécifié est trop long (20 caractères maximum)', 20),
 	          new NotNullValidator('Merci de spécifier un mot de passe'),
+	          new PasswordValidator('Vos mots de passe de correspondent pas', $this->form(), 'passwordConfirmation'),
 	        ],
 	       ]))
 	       ->add(new StringField([

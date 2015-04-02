@@ -17,6 +17,8 @@ class SelectField extends Field
 
     $widget .= '<label>'.$this->label.'</label><select name="'.$this->name.'">';
 
+    $widget .= '<option value=""></option>';
+
     foreach($this->values as $val){
         $widget .= '<option value="'.$val['value'].'">'.$val['label']. '</option>';
     }
