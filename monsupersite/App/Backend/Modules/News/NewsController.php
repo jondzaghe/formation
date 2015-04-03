@@ -51,7 +51,7 @@ class NewsController extends BackController
 
     if($this->app->user()->getAttribute('user')->fucType() != Users::TYPE_ADMIN){
 
-        $this->app->httpResponse()->redirect('../');
+        $this->app->httpResponse()->redirect('/accessError.html');
     }
     else{
         $this->page->addVar('title', 'Gestion des news');

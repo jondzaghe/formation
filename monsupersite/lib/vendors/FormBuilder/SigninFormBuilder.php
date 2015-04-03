@@ -42,7 +42,6 @@ class SigninFormBuilder extends FormBuilder{
 	        'maxLength' => 50,
 	        'type' => 'password',
 	        'validators' => [
-	          new MaxLengthValidator('Le prenom spécifié est trop long (20 caractères maximum)', 20),
 	          new NotNullValidator('Merci de spécifier un mot de passe'),
 	        ],
 	       ]))
@@ -53,7 +52,6 @@ class SigninFormBuilder extends FormBuilder{
 	        'maxLength' => 50,
 	        'type' => 'password',
 	        'validators' => [
-	          new MaxLengthValidator('Le prenom spécifié est trop long (20 caractères maximum)', 20),
 	          new NotNullValidator('Merci de spécifier un mot de passe'),
 	          new PasswordValidator('Vos mots de passe de correspondent pas', $this->form(), 'passwordConfirmation'),
 	        ],

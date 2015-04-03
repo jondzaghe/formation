@@ -3,6 +3,7 @@ namespace App\Backend\Modules\Connexion;
  
 use \OCFram\BackController;
 use \OCFram\HTTPRequest;
+use \Entity\Users;
  
 class ConnexionController extends BackController
 {
@@ -12,13 +13,13 @@ class ConnexionController extends BackController
  
     if ($request->postExists('login'))
     {
-      $login = $request->postData('login');
-      $password = $request->postData('password');
+      $user = new Users(array('lastname' => $request->postData('login'), 'password' => $request->postData('password')));
+      $user->passwordCrypting();
 
       // On récupère le manager des users
       $manager = $this->managers->getManagerOf('Users');
 
-      $user = $manager->getUser($login, $password);
+      $user = $manager->getUser($user->fucLastname(), $user->fucPassword());
  
       if ($user === null){
           $this->app->user()->setFlash('Le pseudo ou le mot de passe est incorrect.');

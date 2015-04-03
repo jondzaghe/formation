@@ -37,7 +37,7 @@ class UserController extends BackController
       	$this->app->httpResponse()->redirect('/admin/usermanagment.html');
     }
     else{
-        $this->app->httpResponse()->redirect('../');
+        $this->app->httpResponse()->redirect('/accessError.html');
     }
 
   }

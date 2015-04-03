@@ -171,6 +171,10 @@ class UsersManagerPDO extends UsersManager{
 
 
 	public function add($user){
+
+		//We Crypt the pass password
+		$user->passwordCrypting();
+
 		$requete = $this->dao->prepare('INSERT INTO t_mem_userc (fuc_nom, fuc_prenom, fuc_mdp, fuc_mail, fuc_fk_fuy)
 											VALUES (:fuc_nom, :fuc_prenom, :fuc_mdp, :fuc_mail, :fuc_fk_fuy)');
 		$requete->bindValue(':fuc_nom', $user->fucLastname());

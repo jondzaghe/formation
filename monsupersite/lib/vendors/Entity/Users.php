@@ -95,4 +95,9 @@ class Users extends Entity{
 		return str_replace(" ", "-", $this->fuc_nom. " ".$this->fuc_prenom);
 	}
 
+
+	public function passwordCrypting(){
+  		$this->fuc_mdp = crypt($this->fuc_mdp, '$2a$09$mytestsaltforprotectingpassword$');
+  }
+
 }
