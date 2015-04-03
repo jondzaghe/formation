@@ -3,6 +3,7 @@ namespace App\Backend\Modules\Connexion;
  
 use \OCFram\BackController;
 use \OCFram\HTTPRequest;
+use OCFram\Crypt;
 use \Entity\Users;
  
 class ConnexionController extends BackController
@@ -13,21 +14,24 @@ class ConnexionController extends BackController
  
     if ($request->postExists('login'))
     {
-      $user = new Users(array('lastname' => $request->postData('login'), 'password' => $request->postData('password')));
-      $user->passwordCrypting();
+      $login = $request->postData('login');
+      $password = $request->postData('password');
 
       // On récupère le manager des users
       $manager = $this->managers->getManagerOf('Users');
 
-      $user = $manager->getUser($user->fucLastname(), $user->fucPassword());
+      $user = $manager->getUser($login);
  
       if ($user === null){
-          $this->app->user()->setFlash('Le pseudo ou le mot de passe est incorrect.');
+          $this->app->user()->setFlash('Ce nom n\'existe pas dans notre base');
       }
       else{
-        $this->app->user()->setAuthenticated(true);
-        $this->app->user()->setAttribute('user', $user);
-        $this->app->httpResponse()->redirect('.');
+        //We cehck the password is write
+        if(Crypt::crypt($password, $user->fucSalt() == $user->fucPassword())){
+            $this->app->user()->setAuthenticated(true);
+            $this->app->user()->setAttribute('user', $user);
+            $this->app->httpResponse()->redirect('.');
+        }
       }
     }
   }

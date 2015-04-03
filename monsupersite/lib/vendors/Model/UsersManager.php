@@ -13,7 +13,7 @@ abstract class UsersManager extends Manager{
 	 * @param  STRING $mdp   [description]
 	 * @return users        [description]
 	 */
-	abstract public function getUser($login, $mdp);
+	abstract public function getUser($login);
 
 
 	/**

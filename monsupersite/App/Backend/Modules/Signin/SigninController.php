@@ -9,6 +9,7 @@ use \OCFram\TextField;
 use \Entity\Users;
 use \FormBuilder\SigninFormBuilder;
 use \OCFram\FormHandler;
+use \OCFram\Crypt;
 
 class SigninController extends BackController{
 
@@ -36,6 +37,12 @@ class SigninController extends BackController{
 				'passwordConfirmation' => $request->postData('passwordConfirmation'),
 				'type' => $request->postData('fucType'),
 				]);
+
+				//We generate a news salt
+				$user->saltGeneration();
+				$user->setPassword(Crypt::crypt($user->fucPassword(), $user->fucSalt()));
+				$user->setPasswordConfirmation(Crypt::crypt($user->passwordConfirmation(), $user->fucSalt()));
+
 		    }
 		    else{
 		      $user = new Users();

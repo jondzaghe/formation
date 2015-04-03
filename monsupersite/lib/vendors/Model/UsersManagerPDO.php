@@ -2,15 +2,14 @@
 namespace Model;
 
 use \Entity\Users;
+use \OCFram\Crypt;
 
 class UsersManagerPDO extends UsersManager{
 
-	public function getUser($login, $mdp){
-		$requete = $this->dao->prepare('SELECT fuc_id, fuc_nom, fuc_prenom, fuc_mdp, fuc_fk_fuy FROM T_MEM_userc WHERE fuc_nom = :nom AND fuc_mdp = :mdp');
+	public function getUser($login){
+		$requete = $this->dao->prepare('SELECT fuc_id, fuc_nom, fuc_prenom, fuc_mdp, fuc_fk_fuy , fuc_salt FROM T_MEM_userc WHERE fuc_nom = :nom');
     
 	    $requete->bindValue(':nom', $login);
-	    $requete->bindValue(':mdp', $mdp);
-	    
 	    $requete->execute();
 
 	    //WE CHECK THE NUMBER OF ROW RETURNED
@@ -24,6 +23,7 @@ class UsersManagerPDO extends UsersManager{
 	    	$user->setFirstname($data['fuc_prenom']);
 	    	$user->setPassword($data['fuc_mdp']);
 	    	$user->setType($data['fuc_fk_fuy']);
+	    	$user->setSalt($data['fuc_salt']);
 
 	    	return $user;
 	    }
@@ -172,16 +172,14 @@ class UsersManagerPDO extends UsersManager{
 
 	public function add($user){
 
-		//We Crypt the pass password
-		$user->passwordCrypting();
-
-		$requete = $this->dao->prepare('INSERT INTO t_mem_userc (fuc_nom, fuc_prenom, fuc_mdp, fuc_mail, fuc_fk_fuy)
-											VALUES (:fuc_nom, :fuc_prenom, :fuc_mdp, :fuc_mail, :fuc_fk_fuy)');
+		$requete = $this->dao->prepare('INSERT INTO t_mem_userc (fuc_nom, fuc_prenom, fuc_mdp, fuc_mail, fuc_fk_fuy, fuc_salt)
+											VALUES (:fuc_nom, :fuc_prenom, :fuc_mdp, :fuc_mail, :fuc_fk_fuy, :fuc_salt)');
 		$requete->bindValue(':fuc_nom', $user->fucLastname());
 		$requete->bindValue(':fuc_prenom', $user->fucFirstname());
 		$requete->bindValue(':fuc_mdp', $user->fucPassword());
 		$requete->bindValue(':fuc_mail', $user->fucMail());
 		$requete->bindValue(':fuc_fk_fuy', $user->fucType());
+		$requete->bindValue(':fuc_salt', $user->fucSalt());
 
 		$requete->execute();
 	}

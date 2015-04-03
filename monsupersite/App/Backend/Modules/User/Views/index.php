@@ -20,9 +20,10 @@ foreach ($listAdmin as $liste)
 <table>
   <tr><th>Nom</th><th>Prenom</th><th>Email</th><th>Actions</th></tr>
 <?php
-foreach ($listWriter as $liste)
-{
-  echo '<tr><td>', $liste->fucLastname(), '</td><td>', $liste->fucFirstname(), '</td><td>', $liste->fucMail(), '</td><td><a href="user-delete-', $liste->fucId(), '.html"><img src="/images/delete.png" alt="Supprimer" /></a></td></tr>', "\n";
+if ($listWriter != null){
+	foreach ($listWriter as $liste){
+	  echo '<tr><td>', $liste->fucLastname(), '</td><td>', $liste->fucFirstname(), '</td><td>', $liste->fucMail(), '</td><td><a href="user-delete-', $liste->fucId(), '.html"><img src="/images/delete.png" alt="Supprimer" /></a></td></tr>', "\n";
+	}
 }
 
 ?>

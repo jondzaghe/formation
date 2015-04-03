@@ -11,7 +11,8 @@ class Users extends Entity{
 				$fuc_mdp,
 				$fuc_mail,
 				$passwordConfirmation,
-				$fuc_fk_type;
+				$fuc_fk_type,
+				$fuc_salt;
 
 	const TYPE_ADMIN = 1; // ID DU TYPE ADMIN
 	const TYPE_ECRIVAIN = 2; // ID DU TYPE ECRIVAIN
@@ -54,6 +55,10 @@ class Users extends Entity{
 		return $this->fuc_mail;
 	}
 
+	public function fucSalt(){
+		return $this->fuc_salt;
+	}
+
 
 	public function passwordConfirmation(){
 		return $this->passwordConfirmation;
@@ -90,14 +95,18 @@ class Users extends Entity{
 		$this->passwordConfirmation = $password;
 	}
 
+	public function setSalt($salt){
+		$this->fuc_salt = $salt;
+	}
+
 	public function getUrlName(){
 
 		return str_replace(" ", "-", $this->fuc_nom. " ".$this->fuc_prenom);
 	}
 
 
-	public function passwordCrypting(){
-  		$this->fuc_mdp = crypt($this->fuc_mdp, '$2a$09$mytestsaltforprotectingpassword$');
-  }
+	public function saltGeneration(){
+		$this->fuc_salt = crypt($this->fuc_mail);
+	}
 
 }

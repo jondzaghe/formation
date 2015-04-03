@@ -1,4 +1,7 @@
 <?php
+if($listItem == null){
+	echo "Il n'y pas de news";
+}
 foreach ($listItem as $item)
 {
 ?>
