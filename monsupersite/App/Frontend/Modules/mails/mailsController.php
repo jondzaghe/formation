@@ -30,10 +30,17 @@ class MailsController extends BackController{
 
 			 
 			      if ($user === null){
+
+
 			          $this->app->user()->setFlash('Aucun compte ne correspond a ce nom');
 			          $this->app->httpResponse()->redirect('/passwordlost.html');
 			      }
 			      else{
+			      	//Generation of the news password
+			      	//update the table user with the new password
+			      	//sending mail to the user
+
+
 			      	$contenu = "Bonjour, votre mot de passe est: " . $user->fucPassword();
 				    $mailSender = New PasswordRecoverySendMail(array('mails' => $mail,'contenu'=> $contenu));
 				    $mailSender->sendMail();

@@ -62,6 +62,18 @@ class NewsController extends BackController
     {
       $this->app->httpResponse()->redirect404();
     }
+
+
+    //comment form construction
+    $comment = new Comment();
+    $formBuilder = new CommentFormBuilder($comment);
+    $formBuilder->build();
+ 
+    $form = $formBuilder->form();
+ 
+    $formHandler = new FormHandler($form, $this->managers->getManagerOf('Comments'), $request);
+ 
+    $this->page->addVar('form', $form->createView());
     
     $this->page->addVar('title', $news->titre());
     $this->page->addVar('news', $news);
@@ -109,12 +121,13 @@ class NewsController extends BackController
       //WE SEND THE MAIL
       $this->newCommentSendMail($request->getData('news'), $comment);
  
-      $this->app->httpResponse()->redirect('news-'.$request->getData('news').'.html');
+      // $this->app->httpResponse()->redirect('news-'.$request->getData('news').'.html');
     }
  
     $this->page->addVar('comment', $comment);
     $this->page->addVar('form', $form->createView());
     $this->page->addVar('title', 'Ajout d\'un commentaire');
+    // $this->app->httpResponse()->redirect('news-'.$request->getData('news').'.html');
   }
 
 

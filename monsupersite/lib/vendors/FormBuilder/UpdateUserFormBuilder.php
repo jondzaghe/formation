@@ -44,7 +44,6 @@ class UpdateUserFormBuilder extends FormBuilder{
 	        'maxLength' => 50,
 	        'validators' => [
 	          new NotNullValidator('Merci de spécifier un mot de passe'),
-	          new PasswordValidator('Les mots de passe ne correspondent pas', $this->form->entity()),
 	        ],
 	       ]))
 	       ->add(new StringField([
@@ -56,5 +55,11 @@ class UpdateUserFormBuilder extends FormBuilder{
 	          new EmailValidator('Merci une adresse mail valide'),
 	        ],
 	       ]));
+  }
+
+  public function getPasswordValues(){
+  		$values['pwd'] = $this->form->entity()->fucPassword();
+  		$values['pwdCheck'] = $this->form->entity()->passwordConfirmation();
+  		return $values;
   }
 }

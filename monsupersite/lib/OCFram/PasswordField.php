@@ -4,11 +4,7 @@ namespace OCFram;
 class PasswordField extends Field
 {
   protected $maxLength;
-  protected $labelCheck;
-  protected $nameCheck;
-  protected $valueCheck;
 
-  
   public function buildWidget()
   {
     $widget = '';
@@ -18,7 +14,6 @@ class PasswordField extends Field
       $widget .= $this->errorMessage.'<br />';
     }
     
-
     $widget .= '<label>'.$this->label.'</label><input type="password" name="'.$this->name.'"';
     
     if (!empty($this->value))
@@ -31,24 +26,8 @@ class PasswordField extends Field
       $widget .= ' maxlength="'.$this->maxLength.'"';
     }
 
-    $widget .= ' /><br>';
-
-    //Password check field
-    $widget .= '<label>'.$this->label.'</label><input type="password" name="'.$this->nameCheck.'"';
+    return $widget .= ' /><br>';
     
-    if (!empty($this->valueCheck))
-    {
-      $widget .= ' value="'.htmlspecialchars($this->valueCheck).'"';
-    }
-    
-    if (!empty($this->maxLength))
-    {
-      $widget .= ' maxlength="'.$this->maxLength.'"';
-    }
-
-    $widget .= ' />';
-    
-    return $widget;
   }
   
   public function setMaxLength($maxLength)

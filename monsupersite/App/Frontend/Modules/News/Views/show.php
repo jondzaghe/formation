@@ -33,4 +33,37 @@ foreach ($comments as $comment)
 }
 ?>
  
-<p><a href="commenter-<?= $news['id'] ?>.html">Ajouter un commentaire</a></p>
+<p><h2>Ajouter un commentaire</h2>
+<form action="/commenter-<?php echo $news['id'] ?>.html" method="post">
+  <p>
+    <?= $form ?>
+    
+    <p><input type="submit" value="Commenter" /></p>
+  </p>
+</form>
+</p>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $( "form" ).on( "submit", function( event ) {
+            event.preventDefault();
+
+            var $this = $(this);
+   
+            // Je récupère les valeurs
+            var pseudo = $('#pseudo').val();
+            var mail = $('#mail').val();
+
+            $.ajax({
+                    url: $this.attr('action'), 
+                    type: $this.attr('method'),
+                    data: $this.serialize(),
+                    datatype : 'json',
+                });
+        });
+    });
+</script>
+
+
+
+<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>

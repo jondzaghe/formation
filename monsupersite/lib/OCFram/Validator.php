@@ -10,7 +10,7 @@ abstract class Validator
     $this->setErrorMessage($errorMessage);
   }
   
-  abstract public function isValid($field);
+  abstract public function isValid($value);
   
   public function setErrorMessage($errorMessage)
   {

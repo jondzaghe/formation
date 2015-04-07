@@ -37,15 +37,19 @@ class SigninFormBuilder extends FormBuilder{
 	          new NotNullValidator('Merci de spécifier un prenom'),
 	        ],
 	       ]))
-	       ->add(new PasswordField([
+	       ->add($password = new PasswordField([
 	        'label' => 'Mot de passe',
 	        'name' => 'fucPassword',
-	        'nameCheck' => 'passwordConfirmation',
-	        'labelCheck' => 'Confirmation du mot de passe',
-	        'maxLength' => 50,
 	        'validators' => [
 	          new NotNullValidator('Merci de spécifier un mot de passe'),
-	          new PasswordValidator('Les mots de passe ne correspondent pas', $this->form->entity()),
+	        ],
+	       ]))
+	       ->add(new PasswordField([
+	        'label' => 'Mot de passe',
+	        'name' => 'passwordConfirmation',
+	        'validators' => [
+	          new NotNullValidator('Merci de spécifier un mot de passe'),
+	          new PasswordValidator('Les mots de passe ne correspondent pas', $password),
 	        ],
 	       ]))
 	       ->add(new StringField([
@@ -67,4 +71,5 @@ class SigninFormBuilder extends FormBuilder{
 	        ],
 	       ]));
   }
+
 }

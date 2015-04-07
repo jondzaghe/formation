@@ -3,20 +3,21 @@ namespace OCFram;
 
 class PasswordValidator extends Validator
 {
-	protected $entity;
 
-	public function __construct($errorMessage, $entity){
+	public function __construct($errorMessage){
 		parent::__construct($errorMessage);
-		$this->entity = $entity;
 	}
 
 	public function isValid($value){
-		if($this->entity->fucPassword() != $this->entity->passwordConfirmation()){
-			return false;
-		}
-		else{
-			return true;
-		}
+		// var_dump($this->values);
+		// exit;
+		// if(){
+		// 	return false;
+		// }
+		// else{
+		// 	return true;
+		// }
+		return true;
 	}
 
 }
