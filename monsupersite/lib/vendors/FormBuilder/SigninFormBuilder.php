@@ -10,6 +10,7 @@ use \OCFram\MaxLengthValidator;
 use \OCFram\NotNullValidator;
 use \OCFram\PasswordValidator;
 use \OCFram\EmailValidator;
+use \OCFram\TypeValidator;
 
  
 class SigninFormBuilder extends FormBuilder{
@@ -62,6 +63,7 @@ class SigninFormBuilder extends FormBuilder{
 	        'values' => $var,
 	        'validators' => [
 	          new NotNullValidator('Merci de spécifier un type d\'utilisateur'),
+	          new TypeValidator('Merci de spécifier un type d\'utilisateur correct', $var),
 	        ],
 	       ]));
   }
