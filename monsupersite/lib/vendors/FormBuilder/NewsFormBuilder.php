@@ -9,7 +9,7 @@ use \OCFram\NotNullValidator;
  
 class NewsFormBuilder extends FormBuilder
 {
-  public function build()
+  public function build($var = null)
   {
     $this->form->add(new StringField([
         'label' => 'Titre',

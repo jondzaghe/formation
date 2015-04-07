@@ -51,6 +51,18 @@ abstract class UsersManager extends Manager{
 	 */
   	abstract public function getType_a();
 
+  	/**
+  	 * Add a user in the db
+  	 * @param [Users] $user The user to add
+  	 */
+  	abstract public function add($user);
+  	
+  	/**
+  	 * Updat a user in the db
+  	 * @param  [Users] $user [description]
+  	 */
+  	abstract public function update($user);
+
 /**
    * Méthode permettant d'enregistrer un user.
    * @param $user Users à enregistrer
@@ -59,7 +71,12 @@ abstract class UsersManager extends Manager{
    * @return void
    */
   public function save(Users $user){
-    $this->add($user);
+  	if($user->isNew()){
+    	$this->add($user);
+  	}
+  	else{
+  		$this->update($user);
+  	}
   }
 
 

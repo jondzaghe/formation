@@ -18,6 +18,19 @@ class Users extends Entity{
 	const TYPE_ECRIVAIN = 2; // ID DU TYPE ECRIVAIN
 
 
+
+	public function isNew(){
+		if($this->fuc_id == null){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+
+
+
+
 	/**
 	 * GETTER $fuc_id
 	 * @return int

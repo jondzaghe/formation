@@ -30,7 +30,7 @@ class ConnexionController extends BackController
         if(Crypt::crypt($password, $user->fucSalt() == $user->fucPassword())){
             $this->app->user()->setAuthenticated(true);
             $this->app->user()->setAttribute('user', $user);
-            $this->app->httpResponse()->redirect('.');
+            $this->app->httpResponse()->redirect('../');
         }
       }
     }

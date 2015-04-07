@@ -1,4 +1,4 @@
-<p style="text-align: center">LISTE DES UTILISATEURS</p>
+<p><h1 style="text-align: center">LISTE DES UTILISATEURS</h1></p>
  
 
 <h2>Liste des Administrateurs</h2>
@@ -8,7 +8,7 @@
 <?php
 foreach ($listAdmin as $liste)
 {
-  echo '<tr><td>', $liste->fucLastname(), '</td><td>', $liste->fucFirstname(), '</td><td>', $liste->fucMail(), '</td><td><a href="user-delete-', $liste->fucId(), '.html"><img src="/images/delete.png" alt="Supprimer" /></a></td></tr>', "\n";
+  echo '<tr><td>', $liste->fucLastname(), '</td><td>', $liste->fucFirstname(), '</td><td>', $liste->fucMail(), '</td><td><a href="user-update-', $liste->fucId(), '.html"><img src="/images/update.png" alt="Supprimer" /></a>&nbsp;&nbsp;<a href="user-delete-', $liste->fucId(), '.html"><img src="/images/delete.png" alt="Supprimer" /></a></td></tr>', "\n";
 }
 
 ?>
@@ -22,7 +22,7 @@ foreach ($listAdmin as $liste)
 <?php
 if ($listWriter != null){
 	foreach ($listWriter as $liste){
-	  echo '<tr><td>', $liste->fucLastname(), '</td><td>', $liste->fucFirstname(), '</td><td>', $liste->fucMail(), '</td><td><a href="user-delete-', $liste->fucId(), '.html"><img src="/images/delete.png" alt="Supprimer" /></a></td></tr>', "\n";
+	  echo '<tr><td>', $liste->fucLastname(), '</td><td>', $liste->fucFirstname(), '</td><td>', $liste->fucMail(), '</td><td><a href="user-update-', $liste->fucId(), '.html"><img src="/images/update.png" alt="Supprimer" /></a>&nbsp;&nbsp;<a href="user-delete-', $liste->fucId(), '.html"><img src="/images/delete.png" alt="Supprimer" /></a></td></tr>', "\n";
 	}
 }
 

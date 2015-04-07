@@ -35,7 +35,7 @@
                   <li><a href="/admin/usermanagment.html">Gestion des utilisateurs</a></li>
               <?php endif ; ?>
               <li><a href="/admin/logout/">Déconnexion</a></li>
-              <li><a href="">Bonjour <?php echo $user->getAttribute('user')->fucLastname(); ?></a></li>
+              <li><a href="/admin/user-update-<?php echo $user->getAttribute('user')->fucId() ?>.html">Bonjour <?php echo $user->getAttribute('user')->fucLastname(); ?></a></li>
           <?php endif ; ?>
           <li><a href="/device.html">Your device</a></li>
         </ul>

@@ -62,7 +62,7 @@ class UsersManagerPDO extends UsersManager{
 
 
 	public function getUserId($id){
-		$requete = $this->dao->prepare('SELECT fuc_id, fuc_nom, fuc_prenom, fuc_mdp, fuc_fk_fuy FROM T_MEM_userc WHERE fuc_id = :id');
+		$requete = $this->dao->prepare('SELECT fuc_id, fuc_nom, fuc_prenom, fuc_mdp, fuc_mail, fuc_fk_fuy FROM T_MEM_userc WHERE fuc_id = :id');
     
 	    $requete->bindValue(':id', $id);
 	    
@@ -82,6 +82,7 @@ class UsersManagerPDO extends UsersManager{
 	    	$user->setLastname($data['fuc_nom']);
 	    	$user->setFirstname($data['fuc_prenom']);
 	    	$user->setPassword($data['fuc_mdp']);
+	    	$user->setMail($data['fuc_mail']);
 	    	$user->setType($data['fuc_fk_fuy']);
 
 	    	return $user;
@@ -180,6 +181,22 @@ class UsersManagerPDO extends UsersManager{
 		$requete->bindValue(':fuc_mail', $user->fucMail());
 		$requete->bindValue(':fuc_fk_fuy', $user->fucType());
 		$requete->bindValue(':fuc_salt', $user->fucSalt());
+
+		$requete->execute();
+	}
+
+
+	public function update($user){
+
+		$requete = $this->dao->prepare('UPDATE t_mem_userc
+											SET fuc_nom = :fuc_nom, fuc_prenom = :fuc_prenom, fuc_mdp = :fuc_mdp, fuc_mail = :fuc_mail, fuc_salt = :fuc_salt
+											WHERE fuc_id = :fuc_id');
+		$requete->bindValue(':fuc_nom', $user->fucLastname());
+		$requete->bindValue(':fuc_prenom', $user->fucFirstname());
+		$requete->bindValue(':fuc_mdp', $user->fucPassword());
+		$requete->bindValue(':fuc_mail', $user->fucMail());
+		$requete->bindValue(':fuc_salt', $user->fucSalt());
+		$requete->bindValue(':fuc_id', $user->fucId());
 
 		$requete->execute();
 	}

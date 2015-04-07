@@ -11,7 +11,7 @@ use \OCFram\EmailValidator;
 
 class CommentFormBuilder extends FormBuilder
 {
-  public function build()
+  public function build($var = null)
   {
 
     $this->form->add(new StringField([

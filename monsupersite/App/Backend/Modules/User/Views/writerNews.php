@@ -1,4 +1,4 @@
-<p style="text-align: center">Voici la liste de vos news</p>
+<p ><h1 style="text-align: center">Voici la liste de vos news</h1></p>
  
 <table>
   <tr><th>Auteur</th><th>Titre</th><th>Date d'ajout</th><th>Dernière modification</th><th>Action</th></tr>
