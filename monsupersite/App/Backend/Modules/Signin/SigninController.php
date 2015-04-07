@@ -50,7 +50,7 @@ class SigninController extends BackController{
 
 			//WE BUILD THE FORM
 			$formBuilder = new SigninFormBuilder($user);
-	    	$formBuilder->build();
+	    	$formBuilder->build($this->managers->getManagerOf('Users')->getType_a());
 
 	    	$form = $formBuilder->form();
 	    	$formHandler = new FormHandler($form, $this->managers->getManagerOf('Users'), $request);

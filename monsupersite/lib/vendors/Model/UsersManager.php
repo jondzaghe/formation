@@ -45,6 +45,11 @@ abstract class UsersManager extends Manager{
 	abstract public function delete($id);
 
 
+	/**
+	 * GET ALL USER TYPE
+	 * @return [ARRAY] [LIST OF TYPE]
+	 */
+  	abstract public function getType_a();
 
 /**
    * Méthode permettant d'enregistrer un user.
@@ -56,5 +61,8 @@ abstract class UsersManager extends Manager{
   public function save(Users $user){
     $this->add($user);
   }
+
+
+
 
 }

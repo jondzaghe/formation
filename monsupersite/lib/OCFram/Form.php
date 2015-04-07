@@ -45,7 +45,6 @@ class Form
         $valid = false;
       }
     }
-    
     return $valid;
   }
   

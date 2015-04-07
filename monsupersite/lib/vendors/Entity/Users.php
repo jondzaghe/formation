@@ -91,7 +91,7 @@ class Users extends Entity{
 		$this->fuc_mail = $mail;
 	}
 
-	public function setpasswordConfirmation($password){
+	public function setPasswordConfirmation($password){
 		$this->passwordConfirmation = $password;
 	}
 
