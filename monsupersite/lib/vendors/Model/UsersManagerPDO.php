@@ -191,4 +191,13 @@ class UsersManagerPDO extends UsersManager{
 
 		$requete->execute();
 	}
+
+
+	public function getType_a(){
+		$requete = $this->dao->prepare('SELECT muy_id AS value, muy_descriptif AS label FROM t_mem_usery');
+
+		$requete->execute();
+
+		return $requete->fetchAll();
+	}
 }
