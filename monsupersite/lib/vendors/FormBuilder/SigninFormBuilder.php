@@ -13,7 +13,7 @@ use \OCFram\EmailValidator;
  
 class SigninFormBuilder extends FormBuilder{
 
-	public function build(){
+	public function build($var = null){
 
 	    $this->form->add(new StringField([
 	        'label' => 'Nom (login)',
@@ -68,11 +68,7 @@ class SigninFormBuilder extends FormBuilder{
 	       ->add(new SelectField([
 	        'label' => 'Type utilisateur',
 	        'name' => 'fucType',
-	        'values' => [
-	        	"option1" => ["value" => "2",
-	        				 "label" => "ECRIVAIN"],
-	        	"option2" => ["value" => "1",
-	        				 "label" => "ADMIN"]],
+	        'values' => $var,
 	        'validators' => [
 	          new NotNullValidator('Merci de spécifier un type d\'utilisateur'),
 	        ],
