@@ -20,7 +20,12 @@ class SelectField extends Field
     $widget .= '<option value=""></option>';
 
     foreach($this->values as $val){
-        $widget .= '<option value="'.$val['value'].'">'.$val['label']. '</option>';
+        if($this->value == $val['value']){
+          $widget .= '<option value="'.$val['value'].'" selected >'.$val['label']. '</option>';
+        }
+        else{
+          $widget .= '<option value="'.$val['value'].'">'.$val['label']. '</option>';
+        }
     }
 
     $widget .= '</select>';

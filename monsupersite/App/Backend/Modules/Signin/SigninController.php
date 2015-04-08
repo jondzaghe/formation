@@ -40,8 +40,6 @@ class SigninController extends BackController{
 
 				//We generate a news salt
 				$user->saltGeneration();
-				$user->setPassword(Crypt::crypt($user->fucPassword(), $user->fucSalt()));
-				$user->setPasswordConfirmation(Crypt::crypt($user->passwordConfirmation(), $user->fucSalt()));
 
 		    }
 		    else{

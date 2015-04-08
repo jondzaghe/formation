@@ -20,7 +20,7 @@ class StringField extends Field
         $this->type = '';
     }
 
-    $widget .= '<label>'.$this->label.'</label><input type="'.$this->type.'" name="'.$this->name.'"';
+    $widget .= '<label>'.$this->label.'</label><input class="reset" type="'.$this->type.'" name="'.$this->name.'"';
     
     if (!empty($this->value))
     {

@@ -13,16 +13,14 @@ abstract class Field
   
   public function __construct(array $options = [])
   {
-    if (!empty($options))
-    {
+    if (!empty($options)){
       $this->hydrate($options);
     }
   }
   
   abstract public function buildWidget();
   
-  public function isValid()
-  {
+  public function isValid(){
     foreach ($this->validators as $validator)
     {
       if (!$validator->isValid($this->value()))
@@ -30,7 +28,7 @@ abstract class Field
         $this->errorMessage = $validator->errorMessage();
         return false;
       }
-    }
+  }
     
     return true;
   }

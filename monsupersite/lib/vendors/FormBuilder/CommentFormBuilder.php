@@ -17,6 +17,7 @@ class CommentFormBuilder extends FormBuilder
     $this->form->add(new StringField([
         'label' => 'Auteur',
         'name' => 'auteur',
+        'value' => 'Un auteur',
         'maxLength' => 50,
         'validators' => [
           new MaxLengthValidator('L\'auteur spécifié est trop long (50 caractères maximum)', 50),
@@ -27,6 +28,7 @@ class CommentFormBuilder extends FormBuilder
         'label' => 'Mail',
         'name' => 'mail',
         'type' => 'email',
+        'value' => 'mail@mail.com',
         'maxLength' => 100,
         'validators' => [
           new MaxLengthValidator('L\'email spécifié est trop long (100 caracteres max)', 50),
@@ -37,6 +39,8 @@ class CommentFormBuilder extends FormBuilder
        ->add(new TextField([
         'label' => 'Contenu',
         'name' => 'contenu',
+        'value' => '',
+        /*'value' => 'Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l\'imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte.',*/
         'rows' => 7,
         'cols' => 50,
         'validators' => [

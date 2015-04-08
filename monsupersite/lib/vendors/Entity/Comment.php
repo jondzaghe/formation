@@ -20,6 +20,14 @@ class Comment extends Entity
     return !(empty($this->auteur) || empty($this->contenu));
   }
 
+  public function toArray(){
+    return array('news' => $this->news, 'mail' => $this->mail, 'auteur' => $this->auteur, 'contenu' => $this->contenu, 'date' => $this->date()->format($this->date()->format('d/m/Y à H\hi')), 'averti' => $this->averti);
+  }
+
+  public function __toString(){
+    return "{news : $this->news, auteur : $this->auteur, mail : $this->mail, contenu : $this->contenu, date : $this->date, averti : $this->averti}";
+  }
+
 
 
   /**

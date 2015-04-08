@@ -7,12 +7,13 @@ class CommentsManagerPDO extends CommentsManager
 {
   protected function add(Comment $comment)
   {
-    $q = $this->dao->prepare('INSERT INTO comments SET news = :news, auteur = :auteur, mail = :mail, contenu = :contenu, date = NOW(), avertissement = :averti');
+    $q = $this->dao->prepare('INSERT INTO comments SET news = :news, auteur = :auteur, mail = :mail, contenu = :contenu, date = :date, avertissement = :averti');
  
     $q->bindValue(':news', $comment->news(), \PDO::PARAM_INT);
     $q->bindValue(':auteur', $comment->auteur());
     $q->bindValue(':mail', $comment->mail());
     $q->bindValue(':contenu', $comment->contenu());
+    $q->bindValue(':date', $comment->date()->format('Y-m-d H:i:sP'));
     $q->bindValue(':averti', $comment->averti());
  
     $q->execute();

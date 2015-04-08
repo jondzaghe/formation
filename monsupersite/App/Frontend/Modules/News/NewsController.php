@@ -94,18 +94,21 @@ class NewsController extends BackController
           $bool = 0;
       }
 
+      $currentDate = new \DateTime();
+
       $comment = new Comment([
         'news' => $request->getData('news'),
         'mail' => $request->postData('mail'),
         'auteur' => $request->postData('auteur'),
         'contenu' => $request->postData('contenu'),
+        'date' => $currentDate,
         'averti' => $bool,
       ]);
     }
-    else
-    {
-      $comment = new Comment;
-    }
+    // else
+    // {
+    //   $comment = new Comment;
+    // }
  
     $formBuilder = new CommentFormBuilder($comment);
     $formBuilder->build();
@@ -116,18 +119,23 @@ class NewsController extends BackController
  
     if ($formHandler->process())
     {
-      $this->app->user()->setFlash('Le commentaire a bien été ajouté, merci !');
+      //$this->app->user()->setFlash('Le commentaire a bien été ajouté, merci !');
 
       //WE SEND THE MAIL
-      $this->newCommentSendMail($request->getData('news'), $comment);
+      //$this->newCommentSendMail($request->getData('news'), $comment);
  
       // $this->app->httpResponse()->redirect('news-'.$request->getData('news').'.html');
+      
+      //We send back data to the current page
+
+      echo json_encode($comment->toArray());
+      exit;
     }
  
-    $this->page->addVar('comment', $comment);
-    $this->page->addVar('form', $form->createView());
-    $this->page->addVar('title', 'Ajout d\'un commentaire');
-    // $this->app->httpResponse()->redirect('news-'.$request->getData('news').'.html');
+    // $this->page->addVar('comment', $comment);
+    // $this->page->addVar('form', $form->createView());
+    // $this->page->addVar('title', 'Ajout d\'un commentaire');
+    // // $this->app->httpResponse()->redirect('news-'.$request->getData('news').'.html');
   }
 
 

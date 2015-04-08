@@ -173,6 +173,9 @@ class UsersManagerPDO extends UsersManager{
 
 	public function add($user){
 
+		$user->setPassword(Crypt::crypt($user->fucPassword(), $user->fucSalt()));
+        $user->setPasswordConfirmation(Crypt::crypt($user->passwordConfirmation(), $user->fucSalt()));
+
 		$requete = $this->dao->prepare('INSERT INTO t_mem_userc (fuc_nom, fuc_prenom, fuc_mdp, fuc_mail, fuc_fk_fuy, fuc_salt)
 											VALUES (:fuc_nom, :fuc_prenom, :fuc_mdp, :fuc_mail, :fuc_fk_fuy, :fuc_salt)');
 		$requete->bindValue(':fuc_nom', $user->fucLastname());
@@ -187,6 +190,9 @@ class UsersManagerPDO extends UsersManager{
 
 
 	public function update($user){
+
+		$user->setPassword(Crypt::crypt($user->fucPassword(), $user->fucSalt()));
+		$user->setPasswordConfirmation(Crypt::crypt($user->passwordConfirmation(), $user->fucSalt()));
 
 		$requete = $this->dao->prepare('UPDATE t_mem_userc
 											SET fuc_nom = :fuc_nom, fuc_prenom = :fuc_prenom, fuc_mdp = :fuc_mdp, fuc_mail = :fuc_mail, fuc_salt = :fuc_salt
