@@ -11,4 +11,47 @@ foreach ($listNews as $news)
 ?>
 </table>
 
-<a href="../../news-insert.html"><h1><img src="/images/update.png" alt="Modifier" /> &nbsp; Ajouter une news</h1></a>
+<a id="addnews" href=""><h1><img src="/images/update.png" alt="Modifier" /> &nbsp; Ajouter une news</h1></a>
+
+<div id="dialog-form"></div>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $( "#addnews" ).on( "click", function( event ) {
+            event.preventDefault();
+
+            var $this = $(this);
+
+            $.ajax({
+                    url: '/admin/getInsertForm.html', 
+                    type: 'get',
+                    datatype : 'html',
+                    success: function(data, statut){
+ 						console.log(statut);
+ 						form(data);
+
+                    },
+                });
+        });
+    });
+</script>
+
+<script type="text/javascript">
+	function form(data){
+		$("#dialog-form").dialog({
+        resizable: false,
+        modal: true,
+        title: "Modal",
+        height: 250,
+        width: 400,
+    });
+	}
+</script>
+

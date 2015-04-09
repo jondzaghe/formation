@@ -30,23 +30,23 @@ if (empty($comments)) : ?>
 </div>
  
 <p><h2>Ajouter un commentaire</h2>
-<form action="/commenter-<?php echo $news['id'] ?>.html" method="post" name="addcomment">
+<form action="/commenter-<?php echo $news['id'] ?>-json.html" method="post" name="addcomment">
   <p>
     <?= $form ?>
     
     <p><input type="submit" value="Commenter" /></p>
-    <input type="reset" value="clear" />
   </p>
 </form>
+<div id="modal_confirmation" title="Confirmation"></div>
 </p>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
 <script type="text/javascript">
     $(document).ready(function() {
         $( "form" ).on( "submit", function( event ) {
-            console.log('Submit event');
             event.preventDefault();
 
             var $this = $(this);
@@ -59,8 +59,9 @@ if (empty($comments)) : ?>
                     success: function(data){
                       data = jQuery.parseJSON(data);
                       var v = $(displayComment(data)).hide().insertAfter($("#commentsList fieldset").last()).fadeIn("slow").effect("highlight", "slow");
-                      //$('form')[0].reset();
-                      $('form').trigger("reset");
+                      $('form')[0].reset();
+                      $('#modal_confirmation').dialog();
+                      // $('form').trigger("reset");
                       /*console.log($this[0].reset());
                       console.log(this);*/
                       //$(this)[0].reset();
@@ -73,12 +74,16 @@ if (empty($comments)) : ?>
     function displayComment(data){
         var newComment = "<fieldset>" + 
                                "<legend> " + 
-                                    "Posté par <a href=\"mail-" + data.mail +".html\"><strong>" + data.auteur + "</strong></a> le "+ data.date + 
+                                    "Posté par <a href=\"mail-" + data.data.mail +".html\"><strong>" + data.data.auteur + "</strong></a> le "+ data.data.date + 
                                 "</legend>" + 
-                                "<p>"+ data.contenu +"</p>" +
+                                "<p>"+ data.data.contenu +"</p>" +
                           "</fieldset>";
         return newComment;
     }
+</script>
+
+<script type="text/javascript">
+    //setInterval(function(){ alert("Hello"); }, 10000);
 </script>
 
 

@@ -17,7 +17,7 @@ class CommentFormBuilder extends FormBuilder
     $this->form->add(new StringField([
         'label' => 'Auteur',
         'name' => 'auteur',
-        'value' => 'Un auteur',
+        'value' => '',
         'maxLength' => 50,
         'validators' => [
           new MaxLengthValidator('L\'auteur spécifié est trop long (50 caractères maximum)', 50),
@@ -28,7 +28,7 @@ class CommentFormBuilder extends FormBuilder
         'label' => 'Mail',
         'name' => 'mail',
         'type' => 'email',
-        'value' => 'mail@mail.com',
+        'value' => '',
         'maxLength' => 100,
         'validators' => [
           new MaxLengthValidator('L\'email spécifié est trop long (100 caracteres max)', 50),

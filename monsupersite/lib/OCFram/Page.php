@@ -5,6 +5,7 @@ class Page extends ApplicationComponent
 {
   protected $contentFile;
   protected $vars = [];
+  protected $datatype = null;
 
   public function addVar($var, $value)
   {
@@ -32,7 +33,13 @@ class Page extends ApplicationComponent
     $content = ob_get_clean();
 
     ob_start();
+
+    if($this->datatype == null || $this->datatype == 'html'){
       require __DIR__.'/../../App/'.$this->app->name().'/Templates/layout.php';
+    }
+    else{
+      require __DIR__.'/../../App/'.$this->app->name().'/Templates/layout.'.$this->datatype.'.php';
+    }
     return ob_get_clean();
   }
 
@@ -44,5 +51,13 @@ class Page extends ApplicationComponent
     }
 
     $this->contentFile = $contentFile;
+  }
+
+
+  public function setDataType($type){
+      //TODO
+      //Check the type: if it's a known type
+      
+      $this->datatype = $type;
   }
 }

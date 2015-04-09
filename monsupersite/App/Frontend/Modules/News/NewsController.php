@@ -128,8 +128,8 @@ class NewsController extends BackController
       
       //We send back data to the current page
 
-      echo json_encode($comment->toArray());
-      exit;
+      $this->page->addVar('comment', $comment->toArray());
+      $this->page->setDataType($request->getData('datatype'));
     }
  
     // $this->page->addVar('comment', $comment);

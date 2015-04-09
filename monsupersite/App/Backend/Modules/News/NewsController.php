@@ -185,4 +185,17 @@ class NewsController extends BackController
  
     $this->page->addVar('form', $form->createView());
   }
+
+  public function executeGetInsertForm(){
+
+      $news = new News;
+
+      $formBuilder = new NewsFormBuilder($news);
+      $formBuilder->build();
+ 
+      $form = $formBuilder->form();
+
+      echo $form->createView();
+      exit;
+  }
 }

@@ -13,4 +13,5 @@
 	<route url="/admin/logout/" module="Connexion" action="logout"/>
 	<route url="/admin/writer-([0-9]+)/news/" module="User" action="writerNews" vars="id"/>
 	<route url="/admin/adduser.html" module="Signin" action="index"/>
+	<route url="/admin/getInsertForm.html" module="News" action="getInsertForm"/>
 </routes> 
