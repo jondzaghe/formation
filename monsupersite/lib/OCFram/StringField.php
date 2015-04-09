@@ -10,17 +10,19 @@ class StringField extends Field
   public function buildWidget()
   {
     $widget = '';
+    $flag = "";
     
     if (!empty($this->errorMessage))
     {
       $widget .= $this->errorMessage.'<br />';
+      $flag = "error";
     }
     
     if (empty($this->type)){
         $this->type = '';
     }
 
-    $widget .= '<label>'.$this->label.'</label><input class="reset" type="'.$this->type.'" name="'.$this->name.'"';
+    $widget .= '<label>'.$this->label.'</label><input class="'.$flag.'" type="'.$this->type.'" name="'.$this->name.'"';
     
     if (!empty($this->value))
     {

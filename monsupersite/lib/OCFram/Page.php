@@ -32,6 +32,7 @@ class Page extends ApplicationComponent
       require $this->contentFile;
     $content = ob_get_clean();
 
+
     ob_start();
 
     if($this->datatype == null || $this->datatype == 'html'){
@@ -40,6 +41,8 @@ class Page extends ApplicationComponent
     else{
       require __DIR__.'/../../App/'.$this->app->name().'/Templates/layout.'.$this->datatype.'.php';
     }
+    // var_dump(ob_get_clean());
+    // exit;
     return ob_get_clean();
   }
 

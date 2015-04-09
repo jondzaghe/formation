@@ -33,11 +33,10 @@ if (empty($comments)) : ?>
 <form action="/commenter-<?php echo $news['id'] ?>-json.html" method="post" name="addcomment">
   <p>
     <?= $form ?>
-    
     <p><input type="submit" value="Commenter" /></p>
   </p>
 </form>
-<div id="modal_confirmation" title="Confirmation"></div>
+<div id="modal_confirmation" title="Confirmation">Votre commentairea a bien été ajouté</div>
 </p>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -58,9 +57,34 @@ if (empty($comments)) : ?>
                     datatype : 'json',
                     success: function(data){
                       data = jQuery.parseJSON(data);
-                      var v = $(displayComment(data)).hide().insertAfter($("#commentsList fieldset").last()).fadeIn("slow").effect("highlight", "slow");
-                      $('form')[0].reset();
-                      $('#modal_confirmation').dialog();
+                      if(data.data != null){
+                        switch(data.code.code){
+                          case 200:
+                              var v = $(displayComment(data.data)).hide().insertAfter($("#commentsList fieldset").last()).fadeIn("slow").effect("highlight", "slow");
+                              $('form')[0].reset();
+                              $('.error').css("background-color", '#ffffff').empty();
+                              $('#modal_confirmation').dialog({
+                                  buttons: {
+                                      OK: function() {
+                                          $( this ).dialog( "close" );
+                                      }
+                                  },
+                                  position: {
+                                      my: "center top",
+                                      at: "center top"
+                                   }
+                              });
+                          break;
+
+                          case 500:
+                              $this.empty();
+                              $this.append("<p>" + data.data + "<p><input type=\"submit\" value=\"Commenter\" /></p></p>");
+                              $('.error').css("background-color", '#ffbbbb');
+                          break;
+                        }
+                      }
+                      else{
+                      }
                       // $('form').trigger("reset");
                       /*console.log($this[0].reset());
                       console.log(this);*/
@@ -74,9 +98,9 @@ if (empty($comments)) : ?>
     function displayComment(data){
         var newComment = "<fieldset>" + 
                                "<legend> " + 
-                                    "Posté par <a href=\"mail-" + data.data.mail +".html\"><strong>" + data.data.auteur + "</strong></a> le "+ data.data.date + 
+                                    "Posté par <a href=\"mail-" + data.mail +".html\"><strong>" + data.auteur + "</strong></a> le "+ data.date + 
                                 "</legend>" + 
-                                "<p>"+ data.data.contenu +"</p>" +
+                                "<p>"+ data.contenu +"</p>" +
                           "</fieldset>";
         return newComment;
     }

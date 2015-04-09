@@ -117,23 +117,27 @@ class NewsController extends BackController
  
     $formHandler = new FormHandler($form, $this->managers->getManagerOf('Comments'), $request);
  
-    if ($formHandler->process())
-    {
-      //$this->app->user()->setFlash('Le commentaire a bien été ajouté, merci !');
+    $this->page->setDataType($request->getData('datatype'));
 
-      //WE SEND THE MAIL
-      //$this->newCommentSendMail($request->getData('news'), $comment);
- 
-      // $this->app->httpResponse()->redirect('news-'.$request->getData('news').'.html');
-      
-      //We send back data to the current page
 
-      $this->page->addVar('comment', $comment->toArray());
-      $this->page->setDataType($request->getData('datatype'));
+    if ($formHandler->process()){
+        //$this->app->user()->setFlash('Le commentaire a bien été ajouté, merci !');
+
+        //WE SEND THE MAIL
+        //$this->newCommentSendMail($request->getData('news'), $comment);
+   
+        // $this->app->httpResponse()->redirect('news-'.$request->getData('news').'.html');
+        
+
+        $this->page->addVar('data', $comment->toArray());
+        $this->page->addVar('code', array('code' => 200));
+    }
+    else{
+         $this->page->addVar('data', $form->createView());
+         $this->page->addVar('code', array('code' => 500));
     }
  
     // $this->page->addVar('comment', $comment);
-    // $this->page->addVar('form', $form->createView());
     // $this->page->addVar('title', 'Ajout d\'un commentaire');
     // // $this->app->httpResponse()->redirect('news-'.$request->getData('news').'.html');
   }
@@ -171,7 +175,6 @@ class NewsController extends BackController
 
   public function newCommentSendMail($newsId, $comment){
 
-
       $managers = $this->managers->getManagerOf('Comments');
       $listadressMail = $managers->getCommentMail($newsId, $comment->mail());
 
@@ -183,3 +186,5 @@ class NewsController extends BackController
       $mailSender->sendMail();
   }
 }
+
+
