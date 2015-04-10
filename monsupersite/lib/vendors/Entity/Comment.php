@@ -21,7 +21,7 @@ class Comment extends Entity
   }
 
   public function toArray(){
-    return array('news' => $this->news, 'mail' => $this->mail, 'auteur' => $this->auteur, 'contenu' => $this->contenu, 'date' => $this->date()->format($this->date()->format('d/m/Y à H\hi')), 'averti' => $this->averti);
+    return array('news' => $this->news, 'mail' => $this->mail, 'auteur' => $this->auteur, 'contenu' => $this->contenu, 'date' => $this->date()->format('d/m/Y à H\hi'), 'averti' => $this->averti);
   }
 
   public function __toString(){

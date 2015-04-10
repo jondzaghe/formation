@@ -97,10 +97,10 @@ class NewsController extends BackController
       $currentDate = new \DateTime();
 
       $comment = new Comment([
-        'news' => $request->getData('news'),
-        'mail' => $request->postData('mail'),
-        'auteur' => $request->postData('auteur'),
-        'contenu' => $request->postData('contenu'),
+        'news' => htmlspecialchars($request->getData('news')),
+        'mail' => htmlspecialchars($request->postData('mail')),
+        'auteur' => htmlspecialchars($request->postData('auteur')),
+        'contenu' => htmlspecialchars($request->postData('contenu')),
         'date' => $currentDate,
         'averti' => $bool,
       ]);
@@ -130,11 +130,11 @@ class NewsController extends BackController
         
 
         $this->page->addVar('data', $comment->toArray());
-        $this->page->addVar('code', array('code' => 200));
+        $this->page->setCode(200);
     }
     else{
          $this->page->addVar('data', $form->createView());
-         $this->page->addVar('code', array('code' => 500));
+         $this->page->setCode(500);
     }
  
     // $this->page->addVar('comment', $comment);

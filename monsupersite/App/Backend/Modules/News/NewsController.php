@@ -63,13 +63,6 @@ class NewsController extends BackController
     }
   }
  
-  public function executeInsert(HTTPRequest $request)
-  {
-
-    $this->processForm($request);
- 
-    $this->page->addVar('title', 'Ajout d\'une news');
-  }
  
   public function executeUpdate(HTTPRequest $request)
   {
@@ -137,6 +130,61 @@ class NewsController extends BackController
         $this->app->httpResponse()->redirect('/accessError.html');
     }
   }
+
+
+  public function executeInsert(HTTPRequest $request)
+  {
+
+    // $this->processForm($request);
+    
+    if ($request->method() == 'POST')
+    {
+
+      $userId = $this->app->user()->getAttribute('user')->fucId();
+
+      $currentDate = new \DateTime();
+
+      $news = new News([
+        'auteur' => $userId,
+        'titre' => htmlspecialchars($request->postData('titre')),
+        'contenu' => htmlspecialchars($request->postData('contenu')),
+        'dateAjout' => $currentDate,
+        'dateModif' => $currentDate
+      ]);
+ 
+      if ($request->getExists('id'))
+      {
+        $news->setId($request->getData('id'));
+      }
+    }
+    else
+      $news =  new News();
+
+    $formBuilder = new NewsFormBuilder($news);
+    $formBuilder->build();
+ 
+    $form = $formBuilder->form();
+ 
+    $formHandler = new FormHandler($form, $this->managers->getManagerOf('News'), $request);
+
+    // var_dump($request->getData('datatype'));
+    // exit;
+
+
+    if ($formHandler->process()){
+
+        $this->page->addVar('data', $news);
+        $this->page->setCode(200);
+    }
+    else{
+         $this->page->addVar('data', $form->createView());
+         $this->page->setCode(200);
+    }
+
+ 
+  }
+
+
  
   public function processForm(HTTPRequest $request)
   {
@@ -186,7 +234,7 @@ class NewsController extends BackController
     $this->page->addVar('form', $form->createView());
   }
 
-  public function executeGetInsertForm(){
+  public function executeGetInsertForm(HTTPRequest $request){
 
       $news = new News;
 
@@ -195,7 +243,7 @@ class NewsController extends BackController
  
       $form = $formBuilder->form();
 
-      echo $form->createView();
-      exit;
+      $this->page->addVar('data', $form->createView());
+      $this->page->setCode(200);
   }
 }

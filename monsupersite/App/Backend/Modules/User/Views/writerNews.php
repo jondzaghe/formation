@@ -11,7 +11,7 @@ foreach ($listNews as $news)
 ?>
 </table>
 
-<a id="addnews" href=""><h1><img src="/images/update.png" alt="Modifier" /> &nbsp; Ajouter une news</h1></a>
+<a id="addnews" href="/admin/getInsertForm.html"><h1><img src="/images/update.png" alt="Modifier" /> &nbsp; Ajouter une news</h1></a>
 
 <div id="dialog-form"></div>
 
@@ -20,6 +20,8 @@ foreach ($listNews as $news)
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
+
 
 
 <script type="text/javascript">
@@ -32,26 +34,107 @@ foreach ($listNews as $news)
             $.ajax({
                     url: '/admin/getInsertForm.html', 
                     type: 'get',
-                    datatype : 'html',
+                    datatype : 'json',
                     success: function(data, statut){
- 						console.log(statut);
- 						form(data);
+                        data = jQuery.parseJSON(data);
+                        console.log(data.data);
+                        form(data);
 
                     },
                 });
+            $("#dialog-form").empty();
+
         });
     });
 </script>
 
+
+
+
+
 <script type="text/javascript">
 	function form(data){
-		$("#dialog-form").dialog({
+		$("#dialog-form").append("<form>" + data.data + "</form>").dialog({
         resizable: false,
         modal: true,
-        title: "Modal",
-        height: 250,
-        width: 400,
+        title: "Ajouter une news",
+        height: 300,
+        width: 500,
+        buttons: {
+              "Enregistrer": function() {
+                    addNews($( this ));
+              },
+              Annuler: function() {
+                  $( this ).dialog( "close" );
+                }
+        },
+        position: {
+              my: "center",
+              at: "center"
+        }
     });
 	}
 </script>
+
+
+
+
+
+<script type="text/javascript">
+    function addNews(modal){
+         $(document).ready(function() {
+            var $this = $('form');
+
+                $.ajax({
+                            url: '/admin/news-insert.html', 
+                            type: 'POST',
+                            data: $this.serialize(),
+                            datatype : 'json',
+                            success: function(data){
+                              data = jQuery.parseJSON(data);
+                              if(data.data != null){
+                                switch(data.code){
+                                  case 200:
+                                        console.log(data);
+                                        modal.dialog("close");
+                                        var v = $(displayNews(data.data)).hide().insertAfter($("table tr").last()).fadeIn("slow").effect("highlight", "slow");
+                                  break;
+
+                                  case 500:
+                                      console.log(data);
+                                      $('form').empty();
+                                      $('form').append(data.data);
+                                      $('.error').css("background-color", '#ffbbbb');
+                                  break;
+                                }
+                              }
+                              else{
+                              }
+                              // $('form').trigger("reset");
+                              /*console.log($this[0].reset());
+                              console.log(this);*/
+                              //$(this)[0].reset();
+                            },
+                        });
+        });
+    }
+</script>
+
+
+
+
+<script type="text/javascript">
+    function displayNews(data){
+        var news = "<tr>" +
+                    "<td>" +data.auteur+ "</td>" +
+                    "<td>" +data.titre+ "</td>" +
+                    "<td>" + data.dateAjout + "</td>" +
+                    "<td>-</td>" +
+                    "<td><a href=\"\"><img src=\"/images/update.png\" alt=\"Modifier\" /></a> <a href=\"\"><img src=\"/images/delete.png\" alt=\"Supprimer\" /></a></td>" + 
+                    "</tr>";
+        return news;
+    }
+</script>
+
+
 

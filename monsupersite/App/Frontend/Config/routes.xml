@@ -5,7 +5,7 @@
 	<route url="/news-([0-9]+)\.html" module="News" action="show" vars="id"/>
 	<route url="/author-([0-9]+)/(.+)\.html" module="News" action="listNewsOfAuthor" vars="id,auteur"/>
 	<route url="/mail-(.+)\.html" module="News" action="getNewsCommentedByEmail" vars="mail"/>
-	<route url="/commenter-([0-9]+)-(json)\.html" module="News" action="insertComment" vars="news,datatype" />
+	<route url="/commenter-([0-9]+)\.html" module="News" action="insertComment" vars="news" datatype="json" />
 	<route url="/device.html" module="Device" action="IsDevice"/>
 	<route url="/passwordlost.html" module="mails" action="passwordRecoveryForm"/>
 </routes>

@@ -1,11 +1,21 @@
 <?php
 namespace OCFram;
 
+use OCFram\ApplicationComponent;
+
 class Page extends ApplicationComponent
 {
   protected $contentFile;
   protected $vars = [];
   protected $datatype = null;
+  protected $code;
+
+
+  public function __construct(Application $app, $datatype){
+    parent::__construct($app);
+    $this->setDataType($datatype);
+  }
+
 
   public function addVar($var, $value)
   {
@@ -33,17 +43,45 @@ class Page extends ApplicationComponent
     $content = ob_get_clean();
 
 
-    ob_start();
+    // ob_start();
 
+    // if($this->datatype == null || $this->datatype == 'html'){
+    //   require __DIR__.'/../../App/'.$this->app->name().'/Templates/layout.php';
+    // }
+    // else{
+    //   require __DIR__.'/../../App/'.$this->app->name().'/Templates/layout.'.$this->datatype.'.php';
+    // }
+    // // var_dump(ob_get_clean());
+    // // exit;
+    // return ob_get_clean();
+
+
+
+    // ob_start();
+
+    // if($this->datatype == null || $this->datatype == 'html'){
+    //   require __DIR__.'/../../App/'.$this->app->name().'/Templates/layout.php';
+    // }
+    // else{
+    //   echo json_encode(include __DIR__.'/../../App/'.$this->app->name().'/Templates/layout.'.$this->datatype.'.php');
+    // }
+    // // var_dump(ob_get_clean());
+    // // exit;
+    // return ob_get_clean();
+
+    
     if($this->datatype == null || $this->datatype == 'html'){
+      ob_start();
       require __DIR__.'/../../App/'.$this->app->name().'/Templates/layout.php';
+      return ob_get_clean();
     }
     else{
-      require __DIR__.'/../../App/'.$this->app->name().'/Templates/layout.'.$this->datatype.'.php';
+      return json_encode(include __DIR__.'/../../App/'.$this->app->name().'/Templates/layout.'.$this->datatype.'.php');
     }
     // var_dump(ob_get_clean());
     // exit;
-    return ob_get_clean();
+    
+
   }
 
   public function setContentFile($contentFile)
@@ -62,5 +100,9 @@ class Page extends ApplicationComponent
       //Check the type: if it's a known type
       
       $this->datatype = $type;
+  }
+
+  public function setCode($code){
+    $this->code = $code;
   }
 }

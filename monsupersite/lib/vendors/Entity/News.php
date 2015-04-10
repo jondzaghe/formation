@@ -21,6 +21,16 @@ class News extends Entity
   }
 
 
+  public function toArray(){
+    return array('auteur' => $this->auteur, 'titre' => $this->titre, 'contenu' => $this->contenu, 'dateAjout' => $this->dateAjout()->format('d/m/Y à H\hi'), 'dateModif' => $this->dateModif);
+  }
+
+
+  public function __toString(){
+    return "{auteur: $this->auteur, titre: $this->titre, contenu: $this->contenu}";
+  }
+
+
   // SETTERS //
 
   public function setAuteur($auteur)

@@ -30,7 +30,7 @@ if (empty($comments)) : ?>
 </div>
  
 <p><h2>Ajouter un commentaire</h2>
-<form action="/commenter-<?php echo $news['id'] ?>-json.html" method="post" name="addcomment">
+<form action="/commenter-<?php echo $news['id'] ?>.html" method="post" name="addcomment">
   <p>
     <?= $form ?>
     <p><input type="submit" value="Commenter" /></p>

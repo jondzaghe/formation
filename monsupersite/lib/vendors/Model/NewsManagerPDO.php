@@ -112,11 +112,13 @@ class NewsManagerPDO extends NewsManager
 
   protected function add(News $news)
   {
-    $requete = $this->dao->prepare('INSERT INTO t_mss_news SET auteur = :auteur, titre = :titre, contenu = :contenu, dateAjout = NOW(), dateModif = NOW()');
+    $requete = $this->dao->prepare('INSERT INTO t_mss_news SET auteur = :auteur, titre = :titre, contenu = :contenu, dateAjout = :dateAjout, dateModif = :dateModif');
     
     $requete->bindValue(':titre', $news->titre());
     $requete->bindValue(':auteur', $news->auteur());
     $requete->bindValue(':contenu', $news->contenu());
+    $requete->bindValue(':dateAjout', $news->dateAjout()->format('Y-m-d H:i:sP'));
+    $requete->bindValue(':dateModif', $news->dateModif()->format('Y-m-d H:i:sP'));
     
     $requete->execute();
   }
@@ -125,10 +127,9 @@ class NewsManagerPDO extends NewsManager
 
    protected function modify(News $news)
   {
-    $requete = $this->dao->prepare('UPDATE t_mss_news SET auteur = :auteur, titre = :titre, contenu = :contenu, dateModif = NOW() WHERE id = :id');
+    $requete = $this->dao->prepare('UPDATE t_mss_news SET titre = :titre, contenu = :contenu, dateModif = NOW() WHERE id = :id');
     
     $requete->bindValue(':titre', $news->titre());
-    $requete->bindValue(':auteur', $news->auteur());
     $requete->bindValue(':contenu', $news->contenu());
     $requete->bindValue(':id', $news->id(), \PDO::PARAM_INT);
     
