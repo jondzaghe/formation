@@ -16,6 +16,8 @@ class TextField extends Field
       $widget .= $this->errorMessage.'<br />';
       $flag = "error";
     }
+
+    $widget .= '<div id="'.$this->name.'"></div>';
     
     $widget .= '<label>'.$this->label.'</label><textarea class="'.$flag.'" name="'.$this->name.'"';
     

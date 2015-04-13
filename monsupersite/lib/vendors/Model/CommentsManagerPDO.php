@@ -8,7 +8,7 @@ class CommentsManagerPDO extends CommentsManager
   protected function add(Comment $comment)
   {
     $q = $this->dao->prepare('INSERT INTO comments SET news = :news, auteur = :auteur, mail = :mail, contenu = :contenu, date = :date, avertissement = :averti');
-  var_dump($comment);
+
     $q->bindValue(':news', $comment->news(), \PDO::PARAM_INT);
     $q->bindValue(':auteur', $comment->auteur());
     $q->bindValue(':mail', $comment->mail());
@@ -100,5 +100,22 @@ class CommentsManagerPDO extends CommentsManager
       $q->execute();
 
       return $q->FetchAll(\PDO::FETCH_COLUMN);
+  }
+
+
+  public function getLastInsertId(){
+    return $this->dao->lastInsertId();
+  }
+
+  public function getNewComment($id){
+
+    $q = $this->dao->prepare('SELECT id, news, auteur, mail, contenu, date, avertissement AS averti FROM comments WHERE id > :id');
+    $q->bindValue(':id', (int) $id, \PDO::PARAM_INT);
+    $q->execute();
+ 
+    $q->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\Comment');
+    
+    return $q->fetchAll();
+
   }
 }

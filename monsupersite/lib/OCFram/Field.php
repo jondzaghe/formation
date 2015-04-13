@@ -57,6 +57,10 @@ abstract class Field
   {
     return $this->value;
   }
+
+  public function errorMessage(){
+    return $this->errorMessage;
+  }
   
   public function setLabel($label)
   {

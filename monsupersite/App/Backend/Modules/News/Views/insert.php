@@ -1,3 +1,3 @@
 <?php 
-	echo $data;
+	return $data;
 ?>

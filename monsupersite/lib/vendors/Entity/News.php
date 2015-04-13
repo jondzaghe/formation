@@ -27,7 +27,7 @@ class News extends Entity
 
 
   public function __toString(){
-    return "{auteur: $this->auteur, titre: $this->titre, contenu: $this->contenu}";
+    return "{auteur: $this->auteur, titre: $this->titre, contenu: $this->contenu, dateAjout: ".$this->dateAjout()->format('d/m/Y à H\hi').", dateModif: ".$this->dateModif()->format('d/m/Y à H\hi')."}";
   }
 
 

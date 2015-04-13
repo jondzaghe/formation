@@ -1,8 +1,5 @@
-{
-	"code":<?php if($data != null){
-		echo json_encode($data['code']);
-		} ?>, 
-	"data":<?php if($data != null){
-		echo json_encode($data['data']);
-		} ?>
-}
+<?php 
+
+	return array("code"=>$this->code,"data"=>$content);
+
+?>

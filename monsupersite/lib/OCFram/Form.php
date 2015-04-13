@@ -61,4 +61,18 @@ class Form
   public function field(){
       return $this->fields;
   }
+
+
+  public function errorToArray(){
+    $error = array();
+    foreach ($this->fields as $field){
+      $message = $field->errorMessage();
+      $name = $field->name();
+      if(!empty($message)){
+        $error[$name] = $message; 
+      }
+    }
+
+    return $error;
+  }
 }

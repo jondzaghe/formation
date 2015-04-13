@@ -13,6 +13,8 @@ class PasswordField extends Field
     {
       $widget .= $this->errorMessage.'<br />';
     }
+
+    $widget .= '<div id="'.$this->name.'"></div>';
     
     $widget .= '<label>'.$this->label.'</label><input type="password" name="'.$this->name.'"';
     

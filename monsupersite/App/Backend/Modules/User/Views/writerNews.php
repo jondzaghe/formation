@@ -36,8 +36,8 @@ foreach ($listNews as $news)
                     type: 'get',
                     datatype : 'json',
                     success: function(data, statut){
-                        data = jQuery.parseJSON(data);
-                        console.log(data.data);
+                        //data = jQuery.parseJSON(data);
+                        //console.log(data.data);
                         form(data);
 
                     },
@@ -82,41 +82,41 @@ foreach ($listNews as $news)
 
 <script type="text/javascript">
     function addNews(modal){
-         $(document).ready(function() {
-            var $this = $('form');
+      var $this = $('form');
 
-                $.ajax({
-                            url: '/admin/news-insert.html', 
-                            type: 'POST',
-                            data: $this.serialize(),
-                            datatype : 'json',
-                            success: function(data){
-                              data = jQuery.parseJSON(data);
-                              if(data.data != null){
-                                switch(data.code){
-                                  case 200:
-                                        console.log(data);
-                                        modal.dialog("close");
-                                        var v = $(displayNews(data.data)).hide().insertAfter($("table tr").last()).fadeIn("slow").effect("highlight", "slow");
-                                  break;
+      $.ajax({
+              url: '/admin/news-insert.html', 
+              type: 'POST',
+              data: $this.serialize(),
+              datatype : 'json',
+              success: function(data){
 
-                                  case 500:
-                                      console.log(data);
-                                      $('form').empty();
-                                      $('form').append(data.data);
-                                      $('.error').css("background-color", '#ffbbbb');
-                                  break;
-                                }
-                              }
-                              else{
-                              }
-                              // $('form').trigger("reset");
-                              /*console.log($this[0].reset());
-                              console.log(this);*/
-                              //$(this)[0].reset();
-                            },
+                $('form').find('div').empty();
+                $('form').find('[name]').css("background-color", '#ffffff');
+
+                //console.log(data.code);
+                if(data != null){
+                  switch(data.code){
+                    case 200:
+                          //console.log(data);
+                          modal.dialog("close");
+                          var v = $(displayNews(data.data)).hide().insertAfter($("table tr").last()).fadeIn("slow").effect("highlight", "slow");
+                    break;
+
+                    case 500:
+                        //console.log(data.data);
+                        $.each( data.data, function( index, value ){
+                            //console.log(data.data.titre);
+                            $('form').find('div[id="'+index+'"]').html(value);
+                            $('form').find('[name="'+index+'"]').css("background-color", '#ffbbbb');
                         });
-        });
+                    break;
+                  }
+                }
+                else{
+                }
+              },
+          });
     }
 </script>
 

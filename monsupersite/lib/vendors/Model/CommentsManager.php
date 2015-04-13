@@ -75,4 +75,19 @@ abstract class CommentsManager extends Manager
    */
   abstract public function getCommentMail($newsId, $id);
 
+
+  /**
+   * RETURN THE LAST INSERT ID
+   * @return [INT] [LAST INSERT ID]
+   */
+  abstract public function getLastInsertId();
+
+
+/**
+ * GET ALL NEWS FROM THE LLAST NEWS DISPLAYED
+ * @param  [INT] $id [LAST NEWS DIPLAYED ID]
+ * @return [type]     [description]
+ */
+  abstract public function getNewComment($id);
+
 }

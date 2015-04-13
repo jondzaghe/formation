@@ -22,6 +22,8 @@ class StringField extends Field
         $this->type = '';
     }
 
+    $widget .= '<div id="'.$this->name.'"></div>';
+
     $widget .= '<label>'.$this->label.'</label><input class="'.$flag.'" type="'.$this->type.'" name="'.$this->name.'"';
     
     if (!empty($this->value))

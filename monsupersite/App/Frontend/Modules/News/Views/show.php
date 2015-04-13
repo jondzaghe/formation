@@ -56,10 +56,16 @@ if (empty($comments)) : ?>
                     data: $this.serialize(),
                     datatype : 'json',
                     success: function(data){
-                      data = jQuery.parseJSON(data);
+
+                      $('form').find('div').empty();
+                      $('form').find('[name]').css("background-color", '#ffffff');
+
+                      //data = jQuery.parseJSON(data);
                       if(data.data != null){
-                        switch(data.code.code){
+                        switch(data.code){
                           case 200:
+                              //data.data = jQuery.parseJSON(data.data);
+                              console.log(data.data);
                               var v = $(displayComment(data.data)).hide().insertAfter($("#commentsList fieldset").last()).fadeIn("slow").effect("highlight", "slow");
                               $('form')[0].reset();
                               $('.error').css("background-color", '#ffffff').empty();
@@ -77,9 +83,11 @@ if (empty($comments)) : ?>
                           break;
 
                           case 500:
-                              $this.empty();
-                              $this.append("<p>" + data.data + "<p><input type=\"submit\" value=\"Commenter\" /></p></p>");
-                              $('.error').css("background-color", '#ffbbbb');
+                            $.each( data.data, function( index, value ){
+                            //console.log(data.data.titre);
+                            $('form').find('div[id="'+index+'"]').html(value);
+                            $('form').find('[name="'+index+'"]').css("background-color", '#ffbbbb');
+                        });
                           break;
                         }
                       }
@@ -96,6 +104,7 @@ if (empty($comments)) : ?>
 </script>
 <script type="text/javascript">
     function displayComment(data){
+
         var newComment = "<fieldset>" + 
                                "<legend> " + 
                                     "Posté par <a href=\"mail-" + data.mail +".html\"><strong>" + data.auteur + "</strong></a> le "+ data.date + 
@@ -107,7 +116,16 @@ if (empty($comments)) : ?>
 </script>
 
 <script type="text/javascript">
-    //setInterval(function(){ alert("Hello"); }, 10000);
+  function displayNewComments(){
+    
+  }
 </script>
+
+
+<script type="text/javascript">
+    //setInterval(function(){displayNewComments()}, 5000);
+</script>
+
+
 
 

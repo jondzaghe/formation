@@ -173,12 +173,13 @@ class NewsController extends BackController
 
     if ($formHandler->process()){
 
-        $this->page->addVar('data', $news);
+        $this->page->addVar('data', $news->toArray());
         $this->page->setCode(200);
     }
     else{
-         $this->page->addVar('data', $form->createView());
-         $this->page->setCode(200);
+
+         $this->page->addVar('data', $form->errorToArray());
+         $this->page->setCode(500);
     }
 
  
@@ -240,10 +241,11 @@ class NewsController extends BackController
 
       $formBuilder = new NewsFormBuilder($news);
       $formBuilder->build();
- 
+      
       $form = $formBuilder->form();
 
       $this->page->addVar('data', $form->createView());
+
       $this->page->setCode(200);
   }
 }

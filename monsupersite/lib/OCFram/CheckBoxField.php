@@ -19,6 +19,8 @@ class CheckBoxField extends Field
         $this->type = 'checkbox';
     }
 
+    $widget .= '<div id="'.$this->name.'"></div>';
+
     $widget .= '<input type="'.$this->type.'" name="'.$this->name.'"';
     
     if (!empty($this->value))

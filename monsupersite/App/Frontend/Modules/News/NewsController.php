@@ -116,9 +116,6 @@ class NewsController extends BackController
     $form = $formBuilder->form();
  
     $formHandler = new FormHandler($form, $this->managers->getManagerOf('Comments'), $request);
- 
-    $this->page->setDataType($request->getData('datatype'));
-
 
     if ($formHandler->process()){
         //$this->app->user()->setFlash('Le commentaire a bien été ajouté, merci !');
@@ -128,12 +125,11 @@ class NewsController extends BackController
    
         // $this->app->httpResponse()->redirect('news-'.$request->getData('news').'.html');
         
-
         $this->page->addVar('data', $comment->toArray());
         $this->page->setCode(200);
     }
     else{
-         $this->page->addVar('data', $form->createView());
+         $this->page->addVar('data', $form->errorToArray());
          $this->page->setCode(500);
     }
  
@@ -150,7 +146,6 @@ class NewsController extends BackController
 
       $userId = $request->getData('id');
 
-      echo "test";
       $listNews = $managerNews->getListAuthor($userId);
 
 
@@ -184,6 +179,23 @@ class NewsController extends BackController
 
       $mailSender = New NewCommentSendMail(array('mails'=>$listadressMail,'contenu'=> $contenu));
       $mailSender->sendMail();
+  }
+
+
+  public function executeGetNewComment(HTTPRequest $request){
+      //We get back the last comment displayed
+      // $commentId = $request->getData('id');
+
+      // $newcomment_a = array();
+
+      // $commentlist = $this->managers->getManagerOf('Comments')->getNewComment($commentId);
+
+      // foreach($commentlist as $comment){
+      //   $newcomment_a[] = $comment->toArray();
+      // }
+
+      // $this->page->addVar('data', $newcomment_a);
+      // $this->page->setCode(200);
   }
 }
 

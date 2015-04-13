@@ -5,7 +5,8 @@ use \OCFram\Entity;
 
 class Comment extends Entity
 {
-  protected $news,
+  protected $id,
+            $news,
             $auteur,
             $mail,
             $contenu,
@@ -21,18 +22,24 @@ class Comment extends Entity
   }
 
   public function toArray(){
-    return array('news' => $this->news, 'mail' => $this->mail, 'auteur' => $this->auteur, 'contenu' => $this->contenu, 'date' => $this->date()->format('d/m/Y à H\hi'), 'averti' => $this->averti);
+    return array('id' => $this->id, 'news' => $this->news, 'mail' => $this->mail, 'auteur' => $this->auteur, 'contenu' => $this->contenu, 'date' => $this->date()->format('d/m/Y à H\hi'), 'averti' => $this->averti);
   }
 
-  public function __toString(){
-    return "{news : $this->news, auteur : $this->auteur, mail : $this->mail, contenu : $this->contenu, date : $this->date, averti : $this->averti}";
-  }
+  // public function __toString(){
+  //   return "{news : $this->news, auteur : $this->auteur, mail : $this->mail, contenu : $this->contenu, date :". $this->date()->format('d/m/Y à H\hi') .", averti : $this->averti}";
+  // }
 
 
 
   /**
   ** SETTER
   **/
+
+  public function setId($id)
+  {
+    $this->id = (int) $id;
+  }
+
 
   public function setNews($news)
   {
@@ -107,5 +114,10 @@ class Comment extends Entity
   public function averti()
   {
     return $this->averti;
+  }
+
+  public function id()
+  {
+    return $this->id;
   }
 }
