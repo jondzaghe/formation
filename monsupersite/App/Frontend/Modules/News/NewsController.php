@@ -124,7 +124,7 @@ class NewsController extends BackController
         //$this->newCommentSendMail($request->getData('news'), $comment);
    
         // $this->app->httpResponse()->redirect('news-'.$request->getData('news').'.html');
-        
+        $comment->setId($this->managers->getManagerOf('Comments')->getLastInsertId());
         $this->page->addVar('data', $comment->toArray());
         $this->page->setCode(200);
     }
@@ -137,6 +137,7 @@ class NewsController extends BackController
     // $this->page->addVar('title', 'Ajout d\'un commentaire');
     // // $this->app->httpResponse()->redirect('news-'.$request->getData('news').'.html');
   }
+
 
 
   public function executeListNewsOfAuthor(HTTPRequest $request){
@@ -183,19 +184,21 @@ class NewsController extends BackController
 
 
   public function executeGetNewComment(HTTPRequest $request){
-      //We get back the last comment displayed
-      // $commentId = $request->getData('id');
+      // We get back the last comment displayed
+      $commentId = $request->getData('id');
 
-      // $newcomment_a = array();
+      $newcomment_a = array();
 
-      // $commentlist = $this->managers->getManagerOf('Comments')->getNewComment($commentId);
+      $commentlist = $this->managers->getManagerOf('Comments')->getNewComment($commentId);
 
-      // foreach($commentlist as $comment){
-      //   $newcomment_a[] = $comment->toArray();
-      // }
+      foreach($commentlist as $comment){
+        $comment->setDate(\DateTime::createFromFormat('Y-m-d H:i:s', $comment->date()));
+        $newcomment_a[] = $comment->toArray();
+      }
 
-      // $this->page->addVar('data', $newcomment_a);
-      // $this->page->setCode(200);
+      $this->page->addVar('data', $newcomment_a);
+      $this->page->setCode(200);
+      
   }
 }
 

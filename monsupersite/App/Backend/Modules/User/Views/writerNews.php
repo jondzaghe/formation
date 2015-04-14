@@ -38,7 +38,14 @@ foreach ($listNews as $news)
                     success: function(data, statut){
                         //data = jQuery.parseJSON(data);
                         //console.log(data.data);
-                        form(data);
+                        switch(data.code){
+                          case 200: form(data); break;
+                          case 401: 
+                              console.log('"erreur');
+                              alert(data.data.message);
+                              break;
+                        }
+                        
 
                     },
                 });

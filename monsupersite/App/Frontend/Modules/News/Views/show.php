@@ -14,7 +14,7 @@ if (empty($comments)) : ?>
 <div id="commentsList">
     <?php foreach ($comments as $comment) : ?>
         <fieldset>
-              <legend>
+              <legend id="<?= $comment['id'] ?>">
                 Posté par <a href="/mail-<?= $comment['mail'] ?>.html"> <strong><?= htmlspecialchars($comment['auteur']) ?></strong> </a> le <?= $comment['date']->format('d/m/Y à H\hi') ?>
                 <?php if ($user->getAttribute('user') != null) : ?>
                   <?php if ($user->getAttribute('user')->fucType() == 1) : ?>
@@ -60,11 +60,10 @@ if (empty($comments)) : ?>
                       $('form').find('div').empty();
                       $('form').find('[name]').css("background-color", '#ffffff');
 
-                      //data = jQuery.parseJSON(data);
                       if(data.data != null){
                         switch(data.code){
                           case 200:
-                              //data.data = jQuery.parseJSON(data.data);
+
                               console.log(data.data);
                               var v = $(displayComment(data.data)).hide().insertAfter($("#commentsList fieldset").last()).fadeIn("slow").effect("highlight", "slow");
                               $('form')[0].reset();
@@ -106,7 +105,7 @@ if (empty($comments)) : ?>
     function displayComment(data){
 
         var newComment = "<fieldset>" + 
-                               "<legend> " + 
+                               "<legend id=\""+ data.id +"\"> " + 
                                     "Posté par <a href=\"mail-" + data.mail +".html\"><strong>" + data.auteur + "</strong></a> le "+ data.date + 
                                 "</legend>" + 
                                 "<p>"+ data.contenu +"</p>" +
@@ -116,14 +115,41 @@ if (empty($comments)) : ?>
 </script>
 
 <script type="text/javascript">
-  function displayNewComments(){
-    
+      function displayNewComments(){
+
+          var id = $('legend').last().attr('id');
+
+          $.ajax({
+                  url: 'getNewComment-'+ id +'.html', 
+                  type: 'post',
+                  datatype : 'json',
+                  success: function(data){
+
+                    if(data.data != null){
+                      switch(data.code){
+                        case 200:
+                        $.each(data.data, function(index, value){
+                            $(displayComment(value)).hide().insertAfter($("#commentsList fieldset").last()).fadeIn("slow").effect("highlight", "slow");   
+                        })
+                        break;
+
+                        case 500:
+
+                        break;
+                      }
+                    }
+                  },
+              });
+
   }
 </script>
 
 
 <script type="text/javascript">
-    //setInterval(function(){displayNewComments()}, 5000);
+  $(document).ready(function() {
+      setInterval(function(){displayNewComments()}, 2000);
+      // displayNewComments();
+  });
 </script>
 
 
