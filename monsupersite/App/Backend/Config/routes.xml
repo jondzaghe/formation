@@ -10,7 +10,7 @@
 	<route url="/admin/usermanagment.html" module="User" action="index"/>
 	<route url="/admin/comment-update-([0-9]+)\.html" module="News" action="updateComment" vars="id" />
   	<route url="/admin/comment-delete-([0-9]+)\.html" module="News" action="deleteComment" vars="id" />
-	<route url="/admin/logout/" module="Connexion" action="logout"/>
+	<route url="/admin/logout/" module="Connexion" action="logout" historique="true"/>
 	<route url="/admin/writer-([0-9]+)/news/" module="User" action="writerNews" vars="id"/>
 	<route url="/admin/adduser.html" module="Signin" action="index"/>
 	<route url="/admin/getInsertForm\.html" module="News" action="getInsertForm" datatype="json"/>

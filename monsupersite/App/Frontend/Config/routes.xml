@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <routes>
-	<route url="/" module="News" action="index" />
+	<route url="/" module="News" action="index" historique="true"/>
 	<route url="/accessError.html" module="Error" action="accessError" />
 	<route url="/news-([0-9]+)\.html" module="News" action="show" vars="id"/>
 	<route url="/author-([0-9]+)/(.+)\.html" module="News" action="listNewsOfAuthor" vars="id,auteur"/>

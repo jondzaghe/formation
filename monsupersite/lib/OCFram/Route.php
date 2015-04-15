@@ -9,14 +9,16 @@ class Route
   protected $varsNames;
   protected $vars = [];
   protected $datatype;
+  protected $historique;
 
-  public function __construct($url, $module, $action, array $varsNames, $datatype = null)
+  public function __construct($url, $module, $action, array $varsNames, $datatype = null, $historique = null)
   {
     $this->setUrl($url);
     $this->setModule($module);
     $this->setAction($action);
     $this->setVarsNames($varsNames);
     $this->setDatatype($datatype);
+    $this->setHistorique($historique);
   }
 
   public function hasVars()
@@ -71,6 +73,11 @@ class Route
     $this->datatype = $datatype;
   }
 
+  public function setHistorique($historique)
+  {
+    $this->historique = $historique;
+  }
+
   public function setVars(array $vars)
   {
     $this->vars = $vars;
@@ -98,5 +105,10 @@ class Route
 
   public function datatype(){
     return $this->datatype;
+  }
+
+
+  public function historique(){
+    return $this->historique;
   }
 }

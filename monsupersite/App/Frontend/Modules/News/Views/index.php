@@ -3,8 +3,8 @@ if($listItem == null){
 	echo "Il n'y pas de news";
 }
 
-echo "Chemin : " . ini_get( 'session.save_path');
-var_dump(file_get_contents('C:/Users/jondzaghe/Desktop/UwAmp/bin/apache/sessions/sess_'.session_id()));
+// echo "Chemin : " . ini_get( 'session.save_path');
+//unlink('C:/Users/jondzaghe/Desktop/UwAmp/bin/apache/sessions/sess_'.session_id());
 
 foreach ($listItem as $item)
 {

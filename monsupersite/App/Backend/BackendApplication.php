@@ -20,10 +20,14 @@ class BackendApplication extends Application
     }
     else
     {
-      $controller = new Modules\Connexion\ConnexionController($this, 'Connexion', 'index', null);
+      $controller = new Modules\Connexion\ConnexionController($this, 'Connexion', 'index', null, null);
     }
+    $controller->save();
 
     $controller->execute();
+
+
+    // exit;
 
     $this->httpResponse->setPage($controller->page());
     $this->httpResponse->send();

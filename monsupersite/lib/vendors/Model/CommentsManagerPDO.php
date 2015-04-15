@@ -18,7 +18,7 @@ class CommentsManagerPDO extends CommentsManager
  
     $q->execute();
  
-    $comment->setId($this->dao->lastInsertId());
+    // $comment->setId($this->dao->lastInsertId());
   }
 
 

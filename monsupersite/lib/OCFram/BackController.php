@@ -1,6 +1,8 @@
 <?php
 namespace OCFram;
 
+use Entity\Historique;
+
 abstract class BackController extends ApplicationComponent
 {
   protected $action = '';
@@ -9,8 +11,9 @@ abstract class BackController extends ApplicationComponent
   protected $view = '';
   protected $managers = null;
   protected $datatype = null;
+  protected $historique = null;
 
-  public function __construct(Application $app, $module, $action, $datatype)
+  public function __construct(Application $app, $module, $action, $datatype, $historique)
   {
     parent::__construct($app);
     $this->managers = new Managers('PDO', PDOFactory::getMysqlConnexion());
@@ -20,6 +23,7 @@ abstract class BackController extends ApplicationComponent
     $this->setAction($action);
     $this->setView($action);
     $this->datatype = $datatype;
+    $this->historique = $historique;
   }
 
   public function execute()
@@ -73,5 +77,26 @@ abstract class BackController extends ApplicationComponent
 
   public function setDatatype($datatype){
       $this->datatype = $datatype;
+  }
+
+  public function setHistorique($historique){
+    $this->historique = $historique;
+  }
+
+  public function historique(){
+     return $this->historique;
+  }
+
+
+  public function save(){
+      if($this->historique == 'true'){
+          //WE SAVE THE ACTION
+          $userId = $this->app->user()->getAttribute('user')->fucId();
+          $sessionId = $this->app->user()->getAttribute('sessionid');
+          $currentDate = new \DateTime();
+
+          $historique = new Historique(array('user' => $userId, 'date' => $currentDate, 'session' => $sessionId, 'action' => $this->action));
+          $this->managers->getManagerOf('Historiques')->addHistorique($historique);
+      }
   }
 }
