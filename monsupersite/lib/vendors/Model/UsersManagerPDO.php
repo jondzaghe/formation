@@ -2,6 +2,7 @@
 namespace Model;
 
 use \Entity\Users;
+use \Entity\Session;
 use \OCFram\Crypt;
 
 class UsersManagerPDO extends UsersManager{
@@ -164,6 +165,64 @@ class UsersManagerPDO extends UsersManager{
 	    		$writer->setType($liste['fuc_fk_fuy']);
 
 	    		$listeEcrivain[] = $writer;
+	    	}
+	    }
+
+	    return $listeEcrivain;
+	}
+
+
+	/**
+	 * RETURN THE LISTE OF CONNECTED WRITER
+	 * @return
+	 */
+	public function getWriterConnected_a(){
+
+		$listeEcrivain = array();
+		$i = 0;
+
+		$requete = $this->dao->prepare('SELECT fuc_id, fuc_nom, fuc_prenom, fuc_mail, fuc_mdp, fuc_fk_fuy, MAX(mhc_date) AS date FROM T_MEM_userc 
+											INNER JOIN t_mss_sessionc ON msc_fk_fuc = fuc_id AND msc_fk_mse = :mse
+											INNER JOIN 	t_mss_historiquec ON mhc_fk_msc = msc_id
+											WHERE fuc_fk_fuy = :type
+											GROUP BY fuc_id');
+
+		$requete->bindValue(':type', Users::TYPE_ECRIVAIN);
+		$requete->bindValue(':mse', Session::SESSION_ENCOURS);
+
+		$requete->execute();
+
+		if($requete->rowcount() == 0)
+	    	$listeEcrivain = null;
+	    else{
+	    	$Listes = $requete->FetchAll();
+
+	    	/**
+	    	 * For each loop, we create a new user and we add it to the list
+	    	 */
+	    	
+
+	    	foreach ($Listes as $liste){
+	    		$writer = new Users();
+	    		$writer->setId($liste['fuc_id']);
+	    		$writer->setLastname($liste['fuc_nom']);
+	    		$writer->setFirstname($liste['fuc_prenom']);
+	    		$writer->setMail($liste['fuc_mail']);
+	    		$writer->setPassword($liste['fuc_mdp']);
+	    		$writer->setType($liste['fuc_fk_fuy']);
+
+	    	
+	    		$date = \DateTime::createFromFormat('Y-m-d H:i:s', $liste['date']);
+	    		var_dump($currentDate = new \DateTime());
+	    		var_dump($date);
+
+	    		$diff = date_diff($currentDate, $date);
+
+	    		$diff = $diff->format('il y a %i minutes');
+
+	    		$listeEcrivain[$i]['writer'] = $writer;
+	    		$listeEcrivain[$i]['date'] = $diff;
+	    		$i++;
 	    	}
 	    }
 

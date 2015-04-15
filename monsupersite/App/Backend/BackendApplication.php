@@ -23,7 +23,6 @@ class BackendApplication extends Application
       $controller = new Modules\Connexion\ConnexionController($this, 'Connexion', 'index', null, null);
     }
     $controller->save();
-
     $controller->execute();
 
 

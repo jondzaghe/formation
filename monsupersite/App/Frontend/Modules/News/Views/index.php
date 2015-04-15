@@ -3,6 +3,9 @@ if($listItem == null){
 	echo "Il n'y pas de news";
 }
 
+// $file = session_save_path()."sess_".session_id();
+// unlink($file);
+
 // echo "Chemin : " . ini_get( 'session.save_path');
 //unlink('C:/Users/jondzaghe/Desktop/UwAmp/bin/apache/sessions/sess_'.session_id());
 

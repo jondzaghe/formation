@@ -30,4 +30,19 @@ if ($listWriter != null){
 </table>
 
 <p>&nbsp;</p>
+<h2>Liste des Ecrivains connectés</h2>
+<p>&nbsp;</p>
+<table>
+  <tr><th>Nom</th><th>Prenom</th><th>Email</th><th>Derniere action</th><th>Actions</th></tr>
+<?php
+if ($listActiveWriter != null){
+	foreach ($listActiveWriter as $liste){
+	  echo '<tr><td>', $liste['writer']->fucLastname(), '</td><td>', $liste['writer']->fucFirstname(), '</td><td>', $liste['writer']->fucMail(), '</td><td>', $liste['date'], '</td><td>&nbsp;<a href="user-', $liste['writer']->fucid() ,'-deconnection.html"><img src="/images/delete.png" alt="Supprimer" /></a></td></tr>', "\n";
+	}
+}
+
+?>
+</table>
+
+<p>&nbsp;</p>
 <a href="adduser.html"><h1>Ajouter un utilisateur</h1></a>

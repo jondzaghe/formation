@@ -19,8 +19,10 @@ class SessionsManagerPDO extends SessionsManager{
     }
 
     public function updateSessionStateFinish($id){
-        $q = $this->dao->prepare('UPDATE t_mss_sessionc SET msc_fk_mse = :mse');
+        $q = $this->dao->prepare('UPDATE t_mss_sessionc SET msc_fk_mse = :mse
+                                    WHERE msc_id = :id');
         $q->bindValue(':mse', Session::SESSION_TERMINEE);
+        $q->bindValue(':id', $id);
 
         $q->execute();
     }
@@ -28,4 +30,21 @@ class SessionsManagerPDO extends SessionsManager{
     public function getLastInsertId(){
         return $this->dao->lastInsertId();
   }
+
+
+    public function getSessionById($id){
+        $q = $this->dao->prepare('SELECT msc_id AS id, msc_session AS session FROM t_mss_sessionc
+                                    WHERE msc_fk_fuc = :user AND msc_fk_mse = :mse');
+
+        $q->bindValue(':user', $id);
+        $q->bindValue(':mse', Session::SESSION_ENCOURS);
+
+        $q->execute();
+
+        return $q->fetch();
+
+
+
+
+    }
 }

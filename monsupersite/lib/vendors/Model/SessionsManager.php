@@ -21,6 +21,13 @@ abstract class SessionsManager extends Manager{
 
 
     /**
+     * RETURN THE SESSION OF THE AUTHOR
+     * @return [INT] [description]
+     */
+    abstract function getSessionById($id);
+
+
+    /**
    * RETURN THE LAST INSERT ID
    * @return [INT] [LAST INSERT ID]
    */

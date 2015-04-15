@@ -23,6 +23,7 @@ class UserController extends BackController
         $manager = $this->managers->getManagerOf('Users');
      
         $this->page->addVar('listWriter', $manager->getListeEcrivain());
+        $this->page->addVar('listActiveWriter', $manager->getWriterConnected_a());
         $this->page->addVar('listAdmin', $manager->getAdmin_a());
     }
     else{
@@ -99,6 +100,35 @@ class UserController extends BackController
         $this->page->addVar('title', 'Liste des news');
         $this->page->addVar('listNews', $listNews);
     }
+  }
+
+
+  public function executeUserDeconnection(HttpRequest $request){
+        if($this->app->user()->getAttribute('user')->fucType() != Users::TYPE_ADMIN){
+            $this->app->httpResponse()->redirect('.');
+        }
+        else{
+
+            //We get the session to destroy
+            $sessionToDestroy = $this->managers->getManagerOf('Sessions')->getSessionById($request->getData('id'));
+            //var_dump($this->managers->getManagerOf('Sessions')->getSessionById($request->getData('id')));
+
+
+            $userSession = session_id();
+
+            session_id($sessionToDestroy['session']);
+            var_dump(session_id());
+            var_dump($userSession);
+
+            session_destroy();
+            $this->managers->getManagerOf('Sessions')->updateSessionStateFinish($sessionToDestroy['id']);
+
+            session_id($userSession);
+
+            $this->app->httpResponse()->redirect('usermanagment.html');
+            
+
+        }
   }
 
 

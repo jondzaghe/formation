@@ -89,8 +89,9 @@ abstract class BackController extends ApplicationComponent
 
 
   public function save(){
-      if($this->historique == 'true'){
+      if($this->historique == 'true' && $this->app->user()->isAuthenticated()){
           //WE SAVE THE ACTION
+          
           $userId = $this->app->user()->getAttribute('user')->fucId();
           $sessionId = $this->app->user()->getAttribute('sessionid');
           $currentDate = new \DateTime();

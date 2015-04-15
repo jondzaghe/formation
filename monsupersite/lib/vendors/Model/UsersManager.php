@@ -31,6 +31,13 @@ abstract class UsersManager extends Manager{
 
 
 	/**
+	 * GET ALL WRITERS CONNECTED
+	 * @return [type] [description]
+	 */
+	abstract public function getWriterConnected_a();
+
+
+	/**
 	 * GET THE ADMIN'S LIST
 	 * @return [Users] [List of users]
 	 */
